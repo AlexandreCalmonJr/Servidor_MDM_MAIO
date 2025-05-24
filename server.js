@@ -21,8 +21,7 @@ function getLocalIPAddress() {
 
 const app = express();
 const port = process.env.PORT || 3000;
-const ip = process.env.IP || getLocalIPAddress();
-
+const ip = '0.0.0.0'; // Ouvir em todas as interfaces
 
 // Configurar logger com winston
 const logger = winston.createLogger({
@@ -37,7 +36,6 @@ const logger = winston.createLogger({
   ],
 });
 
-  
 // Middleware CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*'); // Ajustar para produção
@@ -76,6 +74,7 @@ mongoose.connect('mongodb://localhost:27017/mdm', {
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000,
   retryWrites: true,
+  maxPoolSize: 10, // Aumentar pool de conexões
 }).then(() => {
   logger.info('Conectado ao MongoDB');
 }).catch((err) => {
@@ -122,8 +121,9 @@ const Command = mongoose.model('Command', CommandSchema);
 app.post('/api/devices/data', authenticate, async (req, res) => {
   try {
     const data = req.body;
+    logger.info(`Dados recebidos de ${req.ip}: ${JSON.stringify(data)}`);
     if (!data.device_id || !data.device_name) {
-      logger.warn('Faltam campos obrigatórios: device_id ou device_name');
+      logger.warn(`Faltam campos obrigatórios: device_id ou device_name de ${req.ip}`);
       return res.status(400).json({ error: 'device_id e device_name são obrigatórios' });
     }
 
@@ -140,8 +140,8 @@ app.post('/api/devices/data', authenticate, async (req, res) => {
     await device.save();
     res.status(200).json({ message: 'Dados salvos com sucesso' });
   } catch (err) {
-    logger.error(`Erro ao salvar dados: ${err.message}`);
-    res.status(500).json({ error: 'Erro interno do servidor' });
+    logger.error(`Erro ao salvar dados de ${req.ip}: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
   }
 });
 
@@ -150,7 +150,7 @@ app.post('/api/devices/heartbeat', authenticate, async (req, res) => {
   try {
     const { device_id } = req.body;
     if (!device_id) {
-      logger.warn('Faltam campo obrigatório: device_id');
+      logger.warn(`Faltam campo obrigatório: device_id de ${req.ip}`);
       return res.status(400).json({ error: 'device_id é obrigatório' });
     }
 
@@ -168,7 +168,7 @@ app.post('/api/devices/heartbeat', authenticate, async (req, res) => {
     logger.info(`Heartbeat recebido: ${device_id}`);
     res.status(200).json({ message: 'Heartbeat registrado com sucesso' });
   } catch (err) {
-    logger.error(`Erro no heartbeat: ${err.message}`);
+    logger.error(`Erro no heartbeat de ${req.ip}: ${err.message}`);
     res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
@@ -263,5 +263,5 @@ app.get('/', (req, res) => {
 
 // Iniciar servidor
 app.listen(port, ip, () => {
-  logger.info(`🚀 MDM Server rodando em http://${ip}:${port}`);
+  logger.info(`🚀 MDM Server rodando em http://${getLocalIPAddress()}:${port}`);
 });
