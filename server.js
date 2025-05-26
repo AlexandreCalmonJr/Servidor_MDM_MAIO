@@ -648,6 +648,23 @@ app.post('/api/devices/command-result', authenticate, async (req, res) => {
   }
 });
 
+// Excluir dispositivo
+app.delete('/api/devices/:device_id', authenticate, async (req, res) => {
+  try {
+    const { device_id } = req.params;
+    const device = await Device.findOneAndDelete({ device_id });
+    if (!device) {
+      logger.warn(`Dispositivo não encontrado: ${device_id}`);
+      return res.status(404).json({ error: 'Dispositivo não encontrado' });
+    }
+    logger.info(`Dispositivo excluído: ${device_id}`);
+    res.status(200).json({ message: `Dispositivo ${device_id} excluído com sucesso` });
+  } catch (err) {
+    logger.error(`Erro ao excluir dispositivo: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
+  }
+});
+
 // Métricas do servidor
 app.get('/api/server/status', authenticate, async (req, res) => {
   try {
