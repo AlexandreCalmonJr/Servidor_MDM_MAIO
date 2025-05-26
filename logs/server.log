@@ -3412,3 +3412,72 @@
 {"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:11:40.238Z"}
 {"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:11:55.235Z"}
 {"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:11:55.246Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.143:3000","timestamp":"2025-05-26T03:13:39.434Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.143:3000/provision/{token}","timestamp":"2025-05-26T03:13:39.443Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-05-26T03:13:39.501Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:13:40.255Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:13:40.290Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 192.168.0.140","timestamp":"2025-05-26T03:13:40.318Z"}
+{"level":"info","message":"Dados recebidos de 192.168.0.140: {\"device_name\":\"a54x\",\"device_model\":\"SM-S711B\",\"device_id\":\"AP3A.240905.015.A2\",\"serial_number\":\"Test\",\"imei\":\"Test\",\"sector\":\"Test\",\"floor\":\"Test\",\"mac_address\":\"N/A\",\"ip_address\":\"N/A\",\"network\":\"N/A\",\"battery\":100,\"last_seen\":\"2025-05-26T00:13:36.851895\",\"last_sync\":\"2025-05-26T00:11:36.919041\"}","timestamp":"2025-05-26T03:13:40.371Z"}
+{"level":"info","message":"Dispositivo atualizado: AP3A.240905.015.A2","timestamp":"2025-05-26T03:13:40.401Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.140","timestamp":"2025-05-26T03:13:40.468Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:13:40.481Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/heartbeat from 192.168.0.140","timestamp":"2025-05-26T03:13:40.516Z"}
+{"level":"info","message":"Heartbeat recebido de: AP3A.240905.015.A2","timestamp":"2025-05-26T03:13:40.532Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?device_id=AP3A.240905.015.A2 from 192.168.0.140","timestamp":"2025-05-26T03:13:40.584Z"}
+{"level":"info","message":"Requisição recebida: DELETE /api/devices/AP3A.240905.015.A2 from 192.168.0.143","timestamp":"2025-05-26T03:13:48.534Z"}
+{"level":"info","message":"Dispositivo excluído: AP3A.240905.015.A2","timestamp":"2025-05-26T03:13:48.558Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:13:49.838Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 0 dispositivos","timestamp":"2025-05-26T03:13:49.848Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:13:55.239Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 0 dispositivos","timestamp":"2025-05-26T03:13:55.247Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.140","timestamp":"2025-05-26T03:14:00.544Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 0 dispositivos","timestamp":"2025-05-26T03:14:00.551Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 192.168.0.140","timestamp":"2025-05-26T03:14:00.586Z"}
+{"level":"info","message":"Dados recebidos de 192.168.0.140: {\"device_name\":\"a54x\",\"device_model\":\"SM-S711B\",\"device_id\":\"AP3A.240905.015.A2\",\"serial_number\":\"Test\",\"imei\":\"Test\",\"sector\":\"Test\",\"floor\":\"Test\",\"mac_address\":\"N/A\",\"ip_address\":\"N/A\",\"network\":\"N/A\",\"battery\":100,\"last_seen\":\"2025-05-26T00:14:00.218328\",\"last_sync\":\"2025-05-26T00:04:39.867044\"}","timestamp":"2025-05-26T03:14:00.587Z"}
+{"level":"info","message":"Novo dispositivo criado: AP3A.240905.015.A2","timestamp":"2025-05-26T03:14:00.593Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 192.168.0.140","timestamp":"2025-05-26T03:14:01.192Z"}
+{"level":"info","message":"Dados recebidos de 192.168.0.140: {\"device_name\":\"a54x\",\"device_model\":\"SM-S711B\",\"device_id\":\"AP3A.240905.015.A2\",\"serial_number\":\"Test\",\"imei\":\"Test\",\"sector\":\"Test\",\"floor\":\"Test\",\"mac_address\":\"N/A\",\"ip_address\":\"N/A\",\"network\":\"N/A\",\"battery\":100,\"last_seen\":\"2025-05-26T00:14:00.823808\",\"last_sync\":\"2025-05-26T00:14:00.272901\"}","timestamp":"2025-05-26T03:14:01.212Z"}
+{"level":"info","message":"Dispositivo atualizado: AP3A.240905.015.A2","timestamp":"2025-05-26T03:14:01.217Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:14:04.050Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:14:04.052Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:14:10.237Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:14:10.243Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:14:25.238Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:14:25.252Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:14:40.239Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:14:40.247Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:14:55.239Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:14:55.253Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:15:10.234Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:15:10.237Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 192.168.0.140","timestamp":"2025-05-26T03:15:14.203Z"}
+{"level":"info","message":"Dados recebidos de 192.168.0.140: {\"device_name\":\"a54x\",\"device_model\":\"SM-S711B\",\"device_id\":\"AP3A.240905.015.A2\",\"serial_number\":\"Test\",\"imei\":\"Test\",\"sector\":\"Test\",\"floor\":\"Test\",\"mac_address\":\"N/A\",\"ip_address\":\"N/A\",\"network\":\"N/A\",\"battery\":100,\"last_seen\":\"2025-05-26T00:15:13.808959\",\"last_sync\":\"2025-05-26T00:14:00.874285\"}","timestamp":"2025-05-26T03:15:14.205Z"}
+{"level":"info","message":"Dispositivo atualizado: AP3A.240905.015.A2","timestamp":"2025-05-26T03:15:14.214Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.140","timestamp":"2025-05-26T03:15:14.298Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:15:14.300Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/heartbeat from 192.168.0.140","timestamp":"2025-05-26T03:15:14.329Z"}
+{"level":"info","message":"Heartbeat recebido de: AP3A.240905.015.A2","timestamp":"2025-05-26T03:15:14.333Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?device_id=AP3A.240905.015.A2 from 192.168.0.140","timestamp":"2025-05-26T03:15:14.368Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:15:25.236Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:15:25.239Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:15:40.238Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:15:40.241Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:15:55.238Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:15:55.245Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:16:10.250Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:16:10.257Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 192.168.0.140","timestamp":"2025-05-26T03:16:14.219Z"}
+{"level":"info","message":"Dados recebidos de 192.168.0.140: {\"device_name\":\"a54x\",\"device_model\":\"SM-S711B\",\"device_id\":\"AP3A.240905.015.A2\",\"serial_number\":\"Test\",\"imei\":\"Test\",\"sector\":\"Test\",\"floor\":\"Test\",\"mac_address\":\"N/A\",\"ip_address\":\"N/A\",\"network\":\"N/A\",\"battery\":100,\"last_seen\":\"2025-05-26T00:16:13.816823\",\"last_sync\":\"2025-05-26T00:15:13.875667\"}","timestamp":"2025-05-26T03:16:14.222Z"}
+{"level":"info","message":"Dispositivo atualizado: AP3A.240905.015.A2","timestamp":"2025-05-26T03:16:14.234Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.140","timestamp":"2025-05-26T03:16:14.294Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:16:14.296Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/heartbeat from 192.168.0.140","timestamp":"2025-05-26T03:16:14.326Z"}
+{"level":"info","message":"Heartbeat recebido de: AP3A.240905.015.A2","timestamp":"2025-05-26T03:16:14.331Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?device_id=AP3A.240905.015.A2 from 192.168.0.140","timestamp":"2025-05-26T03:16:14.380Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:16:25.237Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:16:25.244Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:16:40.236Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:16:40.243Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.143","timestamp":"2025-05-26T03:16:55.235Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-05-26T03:16:55.237Z"}
