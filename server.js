@@ -438,18 +438,48 @@ app.post('/api/config-profiles', authenticate, async (req, res) => {
 });
 
 // Listar perfis de configuração
-app.get('/api/config-profiles', authenticate, async (req, res) => {
+// Listar dispositivos
+// Receber e salvar dados do dispositivo
+app.post('/api/devices/data', authenticate, async (req, res) => {
   try {
-    const profiles = await ConfigProfile.find().lean();
-    res.status(200).json(profiles);
+    const data = req.body;
+    logger.info(`Dados recebidos de ${req.ip}: ${JSON.stringify(data)}`);
+    
+    if (!data.device_id || !data.device_name) {
+      logger.warn(`Faltam campos obrigatórios: device_id ou device_name de ${req.ip}`);
+      return res.status(400).json({ error: 'device_id e device_name são obrigatórios' });
+    }
+
+    // Substituir "N/A" por null em campos relevantes
+    const sanitizedData = {
+      ...data,
+      network: data.network === 'N/A' ? null : data.network,
+      mac_address: data.mac_address === 'N/A' ? null : data.mac_address,
+      ip_address: data.ip_address === 'N/A' ? null : data.ip_address,
+      last_seen: new Date(),
+    };
+
+    let device = await Device.findOne({ device_id: data.device_id });
+
+    if (device) {
+      Object.assign(device, sanitizedData);
+      logger.info(`Dispositivo atualizado: ${data.device_id}`);
+    } else {
+      device = new Device(sanitizedData);
+      logger.info(`Novo dispositivo criado: ${data.device_id}`);
+    }
+
+    await device.save();
+    res.status(200).json({ message: 'Dados salvos com sucesso' });
   } catch (err) {
-    logger.error(`Erro ao listar perfis: ${err.message}`);
-    res.status(500).json({ error: 'Erro interno do servidor' });
+    logger.error(`Erro ao salvar dados de ${req.ip}: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
   }
 });
 
 // === ROTAS EXISTENTES (CORRIGIDAS) ===
 
+// Receber e salvar dados do dispositivo
 // Receber e salvar dados do dispositivo
 app.post('/api/devices/data', authenticate, async (req, res) => {
   try {
