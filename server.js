@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const winston = require('winston');
 const os = require('os');
 const crypto = require('crypto');
 require('dotenv').config();
 const path = require('path');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
+const { body, validationResult } = require('express-validator');
 
 // Função para detectar o IP local
 function getLocalIPAddress() {
@@ -37,22 +40,39 @@ const logger = winston.createLogger({
   ],
 });
 
-// Middleware CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Ajustar para produção
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  if (req.method === 'OPTIONS') return res.status(200).json({});
-  logger.info(`Requisição recebida: ${req.method} ${req.url} from ${req.ip}`);
-  next();
-});
+// Middleware de compressão
+app.use(compression());
 
-app.use(bodyParser.json());
+// Middleware CORS
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: false,
+  optionsSuccessStatus: 200,
+}));
+
+// Middleware de rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // Limite de 100 requisições por IP
+  message: 'Muitas requisições a partir deste IP, tente novamente após 15 minutos.',
+});
+app.use(limiter);
+
+// Middleware para parsing de JSON
+app.use(express.json());
 
 // Configurar EJS e arquivos estáticos
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Middleware de log de requisições
+app.use((req, res, next) => {
+  logger.info(`Requisição recebida: ${req.method} ${req.url} from ${req.ip}`);
+  next();
+});
 
 // Middleware de autenticação
 const authenticate = (req, res, next) => {
@@ -69,18 +89,26 @@ const authenticate = (req, res, next) => {
   next();
 };
 
+// Middleware global de tratamento de erros
+app.use((err, req, res, next) => {
+  logger.error(`Erro não tratado: ${err.message}`);
+  res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
+});
+
 // Conexão com MongoDB
 mongoose.connect('mongodb://localhost:27017/mdm', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000,
   retryWrites: true,
-  maxPoolSize: 10,
+  maxPoolSize: 50,
+  // reconnectTries: Number.MAX_VALUE, // REMOVA ESTA LINHA
+  // reconnectInterval: 1000,         // REMOVA ESTA LINHA
 }).then(() => {
   logger.info('Conectado ao MongoDB');
 }).catch((err) => {
   logger.error(`Erro ao conectar ao MongoDB: ${err.message}`);
-  process.exit(1);
+  process.exit(1); // É uma boa prática encerrar o processo se a conexão com o BD falhar na inicialização
 });
 
 mongoose.connection.on('disconnected', () => {
@@ -89,30 +117,30 @@ mongoose.connection.on('disconnected', () => {
 
 // Modelo de dispositivo
 const DeviceSchema = new mongoose.Schema({
-  device_name: { type: String, required: true },
-  device_model: { type: String },
-  device_id: { type: String, unique: true, required: true },
-  battery: { type: Number },
-  network: { type: String },
-  host: { type: String },
-  serial_number: { type: String },
-  imei: { type: String },
-  sector: { type: String },
-  floor: { type: String },
-  last_sync: { type: String },
-  secure_android_id: { type: String },
-  mac_address: { type: String },
-  ip_address: { type: String },
+  device_name: { type: String, required: true, trim: true },
+  device_model: { type: String, trim: true, default: 'N/A' },
+  device_id: { type: String, required: true, trim: true },
+  serial_number: { type: String, unique: true, trim: true, sparse: true, default: 'N/A' },
+  imei: { type: String, unique: true, trim: true, sparse: true, default: 'N/A' },
+  battery: { type: Number, min: 0, max: 100, default: null },
+  network: { type: String, trim: true, default: 'N/A' },
+  host: { type: String, trim: true, default: 'N/A' },
+  sector: { type: String, trim: true, default: 'Desconhecido' },
+  floor: { type: String, trim: true, default: 'Desconhecido' },
+  bssid: { type: String, trim: true, default: 'N/A' }, // Adicionado campo para BSSID
+  last_sync: { type: String, trim: true, default: 'N/A' },
+  secure_android_id: { type: String, trim: true, default: 'N/A' },
+  mac_address: { type: String, trim: true, default: 'N/A' },
+  ip_address: { type: String, trim: true, default: 'N/A' },
   last_seen: { type: Date, default: Date.now },
   maintenance_status: { type: Boolean, default: false },
-  maintenance_ticket: { type: String },
+  maintenance_ticket: { type: String, default: '' },
   maintenance_history: [{
     timestamp: { type: Date, required: true },
     status: { type: String, required: true },
     ticket: { type: String }
   }],
-  unit: { type: String },
-  // Campos de provisionamento
+  unit: { type: String, trim: true, default: 'N/A' },
   provisioning_status: { 
     type: String, 
     enum: ['pending', 'in_progress', 'completed', 'failed'], 
@@ -140,12 +168,19 @@ const DeviceSchema = new mongoose.Schema({
   }
 });
 
+// Adicionar índices
+DeviceSchema.index({ serial_number: 1 }, { unique: true, sparse: true });
+DeviceSchema.index({ last_seen: -1 });
+DeviceSchema.index({ ip_address: 1 });
+DeviceSchema.index({ bssid: 1 }); // Índice para BSSID
+
 const Device = mongoose.model('Device', DeviceSchema);
 
 // Modelo de comando
 const CommandSchema = new mongoose.Schema({
-  device_id: { type: String, required: true },
-  command: { type: String, required: true },
+  device_id: { type: String, required: true, trim: true },
+  serial_number: { type: String, required: true, trim: true },
+  command: { type: String, required: true, trim: true },
   parameters: { type: Object },
   status: { type: String, default: 'pending' },
   result: { type: String },
@@ -153,12 +188,15 @@ const CommandSchema = new mongoose.Schema({
   executedAt: { type: Date }
 });
 
+CommandSchema.index({ serial_number: 1, status: 1 });
+CommandSchema.index({ createdAt: -1 });
+
 const Command = mongoose.model('Command', CommandSchema);
 
 // Modelo de perfil de configuração
 const ConfigProfileSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  description: { type: String },
+  name: { type: String, required: true, unique: true, trim: true },
+  description: { type: String, trim: true },
   settings: {
     wifi_configs: [{
       ssid: String,
@@ -188,8 +226,8 @@ const ConfigProfile = mongoose.model('ConfigProfile', ConfigProfileSchema);
 // Modelo de token de provisionamento
 const ProvisioningTokenSchema = new mongoose.Schema({
   token: { type: String, required: true, unique: true },
-  organization: { type: String, required: true },
-  config_profile: { type: String, required: true },
+  organization: { type: String, required: true, trim: true },
+  config_profile: { type: String, required: true, trim: true },
   max_uses: { type: Number, default: 1 },
   used_count: { type: Number, default: 0 },
   expires_at: { type: Date, required: true },
@@ -199,7 +237,22 @@ const ProvisioningTokenSchema = new mongoose.Schema({
 
 const ProvisioningToken = mongoose.model('ProvisioningToken', ProvisioningTokenSchema);
 
-// === ROTAS DE PROVISIONAMENTO ===
+// Tabela de mapeamento de BSSID para setor e andar
+const bssidMapping = {
+  '00:11:22:33:44:55': { sector: 'Nutrição -', floor: 'Terreo' },
+  'aa:bb:cc:dd:ee:ff': { sector: 'Posto 01', floor: '- EMG - HTL' },
+  // Adicione mais BSSIDs conforme necessário
+};
+
+// Função para mapear BSSID para setor e andar
+function mapBssidToLocation(bssid) {
+  if (!bssid || bssid === 'N/A') {
+    return { sector: 'Desconhecido', floor: 'Desconhecido' };
+  }
+  return bssidMapping[bssid.toLowerCase()] || { sector: 'Desconhecido', floor: 'Desconhecido' };
+}
+
+// === ROTAS ===
 
 // Gerar token de provisionamento
 app.post('/api/provisioning/generate-token', authenticate, async (req, res) => {
@@ -210,7 +263,6 @@ app.post('/api/provisioning/generate-token', authenticate, async (req, res) => {
       return res.status(400).json({ error: 'organization e config_profile são obrigatórios' });
     }
 
-    // Verificar se o perfil existe
     const profile = await ConfigProfile.findOne({ name: config_profile });
     if (!profile) {
       return res.status(404).json({ error: 'Perfil de configuração não encontrado' });
@@ -244,7 +296,7 @@ app.post('/api/provisioning/generate-token', authenticate, async (req, res) => {
   }
 });
 
-// Endpoint de provisionamento (usado pelo dispositivo)
+// Endpoint de provisionamento
 app.post('/api/provisioning/enroll', async (req, res) => {
   try {
     const { 
@@ -256,14 +308,14 @@ app.post('/api/provisioning/enroll', async (req, res) => {
       imei,
       secure_android_id,
       mac_address,
-      ip_address 
+      ip_address,
+      bssid // Adicionado para mapeamento
     } = req.body;
 
     if (!provisioning_token || !device_id || !device_name) {
       return res.status(400).json({ error: 'provisioning_token, device_id e device_name são obrigatórios' });
     }
 
-    // Verificar token
     const token = await ProvisioningToken.findOne({ 
       token: provisioning_token,
       is_active: true,
@@ -280,20 +332,21 @@ app.post('/api/provisioning/enroll', async (req, res) => {
       return res.status(401).json({ error: 'Token de provisionamento esgotado' });
     }
 
-    // Verificar se dispositivo já existe
-    let device = await Device.findOne({ device_id });
+    let device = await Device.findOne({ serial_number });
     
     if (device && device.provisioning_status === 'completed') {
       return res.status(409).json({ error: 'Dispositivo já provisionado' });
     }
 
-    // Buscar perfil de configuração
     const configProfile = await ConfigProfile.findOne({ name: token.config_profile });
     if (!configProfile) {
       return res.status(500).json({ error: 'Perfil de configuração não encontrado' });
     }
 
-    // Criar ou atualizar dispositivo
+    // Mapear setor e andar com base no BSSID
+    const location = mapBssidToLocation(bssid);
+    logger.info(`Mapeado BSSID ${bssid} para setor ${location.sector} e andar ${location.floor}`);
+
     const deviceData = {
       device_name,
       device_model,
@@ -303,6 +356,9 @@ app.post('/api/provisioning/enroll', async (req, res) => {
       secure_android_id,
       mac_address,
       ip_address,
+      bssid: bssid || 'N/A',
+      sector: location.sector,
+      floor: location.floor,
       provisioning_status: 'in_progress',
       provisioning_token,
       configuration_profile: token.config_profile,
@@ -319,18 +375,16 @@ app.post('/api/provisioning/enroll', async (req, res) => {
 
     await device.save();
 
-    // Atualizar contador do token
     token.used_count += 1;
     await token.save();
 
-    // Criar comandos de configuração inicial
     const initialCommands = [];
 
-    // Instalar apps obrigatórios
     if (configProfile.settings.mandatory_apps) {
       for (const app of configProfile.settings.mandatory_apps) {
         initialCommands.push({
           device_id,
+          serial_number,
           command: 'install_app',
           parameters: {
             package_name: app.package_name,
@@ -341,34 +395,33 @@ app.post('/api/provisioning/enroll', async (req, res) => {
       }
     }
 
-    // Aplicar restrições
     if (configProfile.settings.restrictions) {
       initialCommands.push({
         device_id,
+        serial_number,
         command: 'apply_restrictions',
         parameters: configProfile.settings.restrictions
       });
     }
 
-    // Configurar WiFi
     if (configProfile.settings.wifi_configs && configProfile.settings.wifi_configs.length > 0) {
       initialCommands.push({
         device_id,
+        serial_number,
         command: 'configure_wifi',
         parameters: { wifi_configs: configProfile.settings.wifi_configs }
       });
     }
 
-    // Salvar comandos
     if (initialCommands.length > 0) {
       await Command.insertMany(initialCommands);
     }
 
-    logger.info(`Dispositivo provisionado: ${device_id} para ${token.organization}`);
-    
+    logger.info(`Dispositivo provisionado: ${serial_number} para ${token.organization}`);
     res.status(200).json({
       message: 'Dispositivo provisionado com sucesso',
       device_id,
+      serial_number,
       organization: token.organization,
       config_profile: token.config_profile,
       commands_count: initialCommands.length
@@ -383,13 +436,13 @@ app.post('/api/provisioning/enroll', async (req, res) => {
 // Finalizar provisionamento
 app.post('/api/provisioning/complete', authenticate, async (req, res) => {
   try {
-    const { device_id, success, error_message } = req.body;
+    const { device_id, serial_number, success, error_message } = req.body;
 
-    if (!device_id) {
-      return res.status(400).json({ error: 'device_id é obrigatório' });
+    if (!serial_number || !device_id) {
+      return res.status(400).json({ error: 'serial_number e device_id são obrigatórios' });
     }
 
-    const device = await Device.findOne({ device_id });
+    const device = await Device.findOne({ serial_number });
     if (!device) {
       return res.status(404).json({ error: 'Dispositivo não encontrado' });
     }
@@ -402,7 +455,7 @@ app.post('/api/provisioning/complete', authenticate, async (req, res) => {
 
     await device.save();
 
-    logger.info(`Provisionamento ${success ? 'concluído' : 'falhou'} para: ${device_id}`);
+    logger.info(`Provisionamento ${success ? 'concluído' : 'falhou'} para: ${serial_number}`);
     res.status(200).json({ message: 'Status de provisionamento atualizado' });
 
   } catch (err) {
@@ -410,8 +463,6 @@ app.post('/api/provisioning/complete', authenticate, async (req, res) => {
     res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
-
-// === ROTAS DE PERFIS DE CONFIGURAÇÃO ===
 
 // Criar perfil de configuração
 app.post('/api/config-profiles', authenticate, async (req, res) => {
@@ -437,99 +488,99 @@ app.post('/api/config-profiles', authenticate, async (req, res) => {
   }
 });
 
-// Listar perfis de configuração
-// Listar dispositivos
 // Receber e salvar dados do dispositivo
-app.post('/api/devices/data', authenticate, async (req, res) => {
-  try {
-    const data = req.body;
-    logger.info(`Dados recebidos de ${req.ip}: ${JSON.stringify(data)}`);
-    
-    if (!data.device_id || !data.device_name) {
-      logger.warn(`Faltam campos obrigatórios: device_id ou device_name de ${req.ip}`);
-      return res.status(400).json({ error: 'device_id e device_name são obrigatórios' });
-    }
+app.post('/api/devices/data', authenticate, [
+  body('device_id').notEmpty().withMessage('device_id é obrigatório').trim(),
+  body('device_name').notEmpty().withMessage('device_name é obrigatório').trim(),
+  body('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
+  body('battery').optional().isInt({ min: 0, max: 100 }).withMessage('battery deve ser um número entre 0 e 100'),
+  body('ip_address').optional().isIP().withMessage('ip_address deve ser um IP válido'),
+  body('mac_address').optional().matches(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/).withMessage('mac_address deve ser um MAC válido'),
+  body('bssid').optional().trim(),
+  body('imei').optional().trim(),
+  body('secure_android_id').optional().trim(),
+  body('network').optional().trim(),
+  body('host').optional().trim(),
+  body('last_sync').optional().trim(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.warn(`Erros de validação: ${JSON.stringify(errors.array())}`);
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-    // Substituir "N/A" por null em campos relevantes
-    const sanitizedData = {
-      ...data,
-      network: data.network === 'N/A' ? null : data.network,
-      mac_address: data.mac_address === 'N/A' ? null : data.mac_address,
-      ip_address: data.ip_address === 'N/A' ? null : data.ip_address,
+  try {
+    let data = req.body;
+    logger.info(`Dados recebidos de ${req.ip}: ${JSON.stringify(data)}`);
+
+    // Mapear setor e andar com base no BSSID
+    const location = mapBssidToLocation(data.bssid);
+    logger.info(`Mapeado BSSID ${data.bssid} para setor ${location.sector} e andar ${location.floor}`);
+
+    // Normalizar dados
+    const normalizedData = {
+      device_name: data.device_name.trim().toLowerCase(),
+      device_model: data.device_model ? data.device_model.trim().toLowerCase() : 'N/A',
+      device_id: data.device_id.trim().toLowerCase(),
+      serial_number: data.serial_number.trim().toLowerCase(),
+      imei: data.imei ? data.imei.trim().toLowerCase() : 'N/A',
+      battery: data.battery || null,
+      network: data.network ? data.network.trim().toLowerCase() : 'N/A',
+      host: data.host ? data.host.trim().toLowerCase() : 'N/A',
+      sector: location.sector, // Usar valor mapeado
+      floor: location.floor,   // Usar valor mapeado
+      bssid: data.bssid ? data.bssid.trim().toLowerCase() : 'N/A',
+      last_sync: data.last_sync ? data.last_sync.trim().toLowerCase() : 'N/A',
+      secure_android_id: data.secure_android_id ? data.secure_android_id.trim().toLowerCase() : 'N/A',
+      mac_address: data.mac_address ? data.mac_address.trim().toLowerCase() : 'N/A',
+      ip_address: data.ip_address ? data.ip_address.trim().toLowerCase() : 'N/A',
       last_seen: new Date(),
     };
 
-    let device = await Device.findOne({ device_id: data.device_id });
+    const device = await Device.findOneAndUpdate(
+      { serial_number: normalizedData.serial_number },
+      { $set: normalizedData },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
 
-    if (device) {
-      Object.assign(device, sanitizedData);
-      logger.info(`Dispositivo atualizado: ${data.device_id}`);
-    } else {
-      device = new Device(sanitizedData);
-      logger.info(`Novo dispositivo criado: ${data.device_id}`);
-    }
-
-    await device.save();
+    logger.info(`Dispositivo ${device.serial_number} salvo/atualizado com sucesso`);
     res.status(200).json({ message: 'Dados salvos com sucesso' });
   } catch (err) {
-    logger.error(`Erro ao salvar dados de ${req.ip}: ${err.message}`);
-    res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
-  }
-});
-
-// === ROTAS EXISTENTES (CORRIGIDAS) ===
-
-// Receber e salvar dados do dispositivo
-// Receber e salvar dados do dispositivo
-app.post('/api/devices/data', authenticate, async (req, res) => {
-  try {
-    const data = req.body;
-    logger.info(`Dados recebidos de ${req.ip}: ${JSON.stringify(data)}`);
-    
-    if (!data.device_id || !data.device_name) {
-      logger.warn(`Faltam campos obrigatórios: device_id ou device_name de ${req.ip}`);
-      return res.status(400).json({ error: 'device_id e device_name são obrigatórios' });
+    if (err.code === 11000) {
+      logger.error(`Erro de duplicidade para serial_number: ${req.body.serial_number} ou IMEI: ${req.body.imei}`);
+      return res.status(409).json({ error: 'Dispositivo com este serial_number ou IMEI já existe', details: err.message });
     }
-
-    let device = await Device.findOne({ device_id: data.device_id });
-
-    if (device) {
-      Object.assign(device, data, { last_seen: new Date() });
-      logger.info(`Dispositivo atualizado: ${data.device_id}`);
-    } else {
-      device = new Device({ ...data, last_seen: new Date() });
-      logger.info(`Novo dispositivo criado: ${data.device_id}`);
-    }
-
-    await device.save();
-    res.status(200).json({ message: 'Dados salvos com sucesso' });
-  } catch (err) {
     logger.error(`Erro ao salvar dados de ${req.ip}: ${err.message}`);
     res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
   }
 });
 
 // Heartbeat para atualizar last_seen
-app.post('/api/devices/heartbeat', authenticate, async (req, res) => {
+app.post('/api/devices/heartbeat', authenticate, [
+  body('device_id').notEmpty().withMessage('device_id é obrigatório').trim(),
+  body('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.warn(`Erros de validação: ${JSON.stringify(errors.array())}`);
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   try {
-    const { device_id } = req.body;
-    if (!device_id) {
-      logger.warn(`Falta campo obrigatório: device_id de ${req.ip}`);
-      return res.status(400).json({ error: 'device_id é obrigatório' });
-    }
+    const { device_id, serial_number } = req.body;
 
     const device = await Device.findOneAndUpdate(
-      { device_id },
-      { last_seen: new Date() },
+      { serial_number },
+      { device_id, last_seen: new Date() },
       { new: true }
     );
 
     if (!device) {
-      logger.warn(`Dispositivo não encontrado para heartbeat: ${device_id}`);
+      logger.warn(`Dispositivo não encontrado para heartbeat: ${serial_number}`);
       return res.status(404).json({ error: 'Dispositivo não encontrado' });
     }
 
-    logger.info(`Heartbeat recebido de: ${device_id}`);
+    logger.info(`Heartbeat recebido de: ${serial_number}`);
     res.status(200).json({ message: 'Heartbeat registrado com sucesso' });
   } catch (err) {
     logger.error(`Erro no heartbeat de ${req.ip}: ${err.message}`);
@@ -550,18 +601,23 @@ app.get('/api/devices', authenticate, async (req, res) => {
 });
 
 // Obter comandos pendentes
-app.get('/api/devices/commands', authenticate, async (req, res) => {
-  try {
-    const device_id = req.query.device_id;
-    if (!device_id) {
-      logger.warn('Falta campo obrigatório: device_id');
-      return res.status(400).json({ error: 'device_id é obrigatório' });
-    }
+app.get('/api/devices/commands', authenticate, [
+  body('device_id').notEmpty().withMessage('device_id é obrigatório').trim(),
+  body('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.warn(`Erros de validação: ${JSON.stringify(errors.array())}`);
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-    const commands = await Command.find({ device_id, status: 'pending' }).lean();
+  try {
+    const { serial_number } = req.query;
+
+    const commands = await Command.find({ serial_number, status: 'pending' }).lean();
     if (commands.length > 0) {
-      await Command.updateMany({ device_id, status: 'pending' }, { status: 'sent' });
-      logger.info(`Comandos pendentes encontrados para ${device_id}: ${commands.length}`);
+      await Command.updateMany({ serial_number, status: 'pending' }, { status: 'sent' });
+      logger.info(`Comandos pendentes encontrados para ${serial_number}: ${commands.length}`);
     }
 
     res.status(200).json(commands.map(cmd => ({
@@ -576,8 +632,12 @@ app.get('/api/devices/commands', authenticate, async (req, res) => {
 });
 
 // Executar comando
-app.post('/api/executeCommand', authenticate, async (req, res) => {
-  const { device_id, command, packageName, apkUrl, maintenance_status, maintenance_ticket, maintenance_history_entry } = req.body;
+app.post('/api/executeCommand', authenticate, [
+  body('device_id').notEmpty().withMessage('device_id é obrigatório').trim(),
+  body('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
+  body('command').notEmpty().withMessage('command é obrigatório').trim(),
+], async (req, res) => {
+  const { device_id, serial_number, command, packageName, apkUrl, maintenance_status, maintenance_ticket, maintenance_history_entry } = req.body;
 
   try {
     if (!device_id || !command) {
@@ -587,7 +647,7 @@ app.post('/api/executeCommand', authenticate, async (req, res) => {
 
     if (command === 'set_maintenance') {
       if (typeof maintenance_status !== 'boolean') {
-        logger.warn(`maintenance_status deve ser booleano para ${device_id}`);
+        logger.warn(`maintenance_status deve ser booleano para ${serial_number}`);
         return res.status(400).json({ error: 'maintenance_status deve ser um valor booleano' });
       }
 
@@ -600,37 +660,37 @@ app.post('/api/executeCommand', authenticate, async (req, res) => {
         try {
           const historyEntry = JSON.parse(maintenance_history_entry);
           if (!historyEntry.timestamp || !historyEntry.status) {
-            logger.warn(`maintenance_history_entry inválido para ${device_id}`);
+            logger.warn(`maintenance_history_entry inválido para ${serial_number}`);
             return res.status(400).json({ error: 'maintenance_history_entry deve conter timestamp e status' });
           }
           updateFields.$push = { maintenance_history: historyEntry };
         } catch (err) {
-          logger.error(`Erro ao parsear maintenance_history_entry para ${device_id}: ${err.message}`);
+          logger.error(`Erro ao parsear maintenance_history_entry para ${serial_number}: ${err.message}`);
           return res.status(400).json({ error: 'Formato inválido para maintenance_history_entry' });
         }
       }
 
       const device = await Device.findOneAndUpdate(
-        { device_id },
+        { serial_number },
         updateFields,
         { new: true }
       );
 
       if (!device) {
-        logger.warn(`Dispositivo não encontrado: ${device_id}`);
+        logger.warn(`Dispositivo não encontrado: ${serial_number}`);
         return res.status(404).json({ error: 'Dispositivo não encontrado' });
       }
 
-      logger.info(`Comando set_maintenance executado para ${device_id}: status=${maintenance_status}`);
-      return res.status(200).json({ message: `Status de manutenção atualizado para ${device_id}` });
+      logger.info(`Comando set_maintenance executado para ${serial_number}: status=${maintenance_status}`);
+      return res.status(200).json({ message: `Status de manutenção atualizado para ${serial_number}` });
     } else {
-      // Outros comandos (lock, uninstall, install)
       await Command.create({ 
         device_id, 
+        serial_number,
         command, 
         parameters: { packageName, apkUrl }
       });
-      logger.info(`Comando "${command}" registrado para ${device_id}`);
+      logger.info(`Comando "${command}" registrado para ${serial_number}`);
       res.status(200).json({ message: `Comando ${command} registrado com sucesso` });
     }
   } catch (err) {
@@ -642,10 +702,10 @@ app.post('/api/executeCommand', authenticate, async (req, res) => {
 // Reportar resultado de comando
 app.post('/api/devices/command-result', authenticate, async (req, res) => {
   try {
-    const { command_id, device_id, success, result, error_message } = req.body;
+    const { command_id, serial_number, success, result, error_message } = req.body;
 
-    if (!command_id && !device_id) {
-      return res.status(400).json({ error: 'command_id ou device_id é obrigatório' });
+    if (!serial_number && !command_id) {
+      return res.status(400).json({ error: 'serial_number ou command_id é obrigatório' });
     }
 
     const updateData = {
@@ -659,7 +719,7 @@ app.post('/api/devices/command-result', authenticate, async (req, res) => {
       command = await Command.findByIdAndUpdate(command_id, updateData, { new: true });
     } else {
       command = await Command.findOneAndUpdate(
-        { device_id, status: 'sent' },
+        { serial_number, status: 'sent' },
         updateData,
         { new: true, sort: { createdAt: -1 } }
       );
@@ -669,7 +729,7 @@ app.post('/api/devices/command-result', authenticate, async (req, res) => {
       return res.status(404).json({ error: 'Comando não encontrado' });
     }
 
-    logger.info(`Resultado do comando recebido: ${command.command} para ${device_id} - ${success ? 'sucesso' : 'falha'}`);
+    logger.info(`Resultado do comando recebido: ${command.command} para ${serial_number} - ${success ? 'sucesso' : 'falha'}`);
     res.status(200).json({ message: 'Resultado do comando registrado' });
 
   } catch (err) {
@@ -679,16 +739,16 @@ app.post('/api/devices/command-result', authenticate, async (req, res) => {
 });
 
 // Excluir dispositivo
-app.delete('/api/devices/:device_id', authenticate, async (req, res) => {
+app.delete('/api/devices/:serial_number', authenticate, async (req, res) => {
   try {
-    const { device_id } = req.params;
-    const device = await Device.findOneAndDelete({ device_id });
+    const { serial_number } = req.params;
+    const device = await Device.findOneAndDelete({ serial_number });
     if (!device) {
-      logger.warn(`Dispositivo não encontrado: ${device_id}`);
+      logger.warn(`Dispositivo não encontrado: ${serial_number}`);
       return res.status(404).json({ error: 'Dispositivo não encontrado' });
     }
-    logger.info(`Dispositivo excluído: ${device_id}`);
-    res.status(200).json({ message: `Dispositivo ${device_id} excluído com sucesso` });
+    logger.info(`Dispositivo excluído: ${serial_number}`);
+    res.status(200).json({ message: `Dispositivo ${serial_number} excluído com sucesso` });
   } catch (err) {
     logger.error(`Erro ao excluir dispositivo: ${err.message}`);
     res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
