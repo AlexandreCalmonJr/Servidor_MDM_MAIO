@@ -685,7 +685,7 @@ app.post('/api/executeCommand', authenticate, [
   const { device_name, serial_number, command, packageName, apkUrl, maintenance_status, maintenance_ticket, maintenance_history_entry } = req.body;
 
   try {
-    if (!device_name || !command) {
+    if (!serial_number || !command) {
       logger.warn('Faltam campos obrigatórios: device_name ou command');
       return res.status(400).json({ error: 'device_name e command são obrigatórios' });
     }
