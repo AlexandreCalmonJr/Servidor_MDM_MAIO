@@ -194,6 +194,7 @@ DeviceSchema.pre('validate', function (next) {
 DeviceSchema.index({ serial_number: 1 }, { unique: true, sparse: true });
 DeviceSchema.index({ bssid: 1 });
 
+
 const Device = mongoose.model('Device', DeviceSchema);
 
 // Modelo de comando
@@ -268,10 +269,47 @@ const BssidMapping = mongoose.model('BssidMapping', BssidMappingSchema);
 // Função para mapear BSSID para setor e andar
 async function mapMacAddressRadioToLocation(mac_address_radio) {
   if (!mac_address_radio || mac_address_radio === 'N/A') {
+    logger.debug(`Nenhum mac_address_radio fornecido: ${mac_address_radio}`);
     return { sector: 'Desconhecido', floor: 'Desconhecido' };
   }
-  const mapping = await BssidMapping.findOne({ bssid: mac_address_radio });
-  return mapping ? { sector: mapping.sector, floor: mapping.floor } : { sector: 'Desconhecido', floor: 'Desconhecido' };
+  const mapping = await BssidMapping.findOne({ mac_address_radio: mac_address_radio });
+  if (!mapping) {
+    logger.debug(`Nenhum mapeamento encontrado para mac_address_radio: ${mac_address_radio}`);
+    return { sector: 'Desconhecido', floor: 'Desconhecido' };
+  }
+  logger.debug(`Mapeamento encontrado para ${mac_address_radio}: ${mapping.sector}, ${mapping.floor}`);
+  return { sector: mapping.sector, floor: mapping.floor };
+}
+
+// Modelo de mapeamento de unidades por faixa de IP
+const UnitMappingSchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true, trim: false },
+  ip_range_start: { type: String, required: true, trim: false },
+  ip_range_end: { type: String, required: true, trim: false },
+  created_at: { type: Date, default: Date.now },
+});
+
+const UnitMapping = mongoose.model('UnitMapping', UnitMappingSchema);
+
+function ipToInt(ip) {
+  const parts = ip.split('.').map(Number);
+  return (parts[0] << 24) + (parts[1] << 16) + (parts[2] << 8) + parts[3];
+}
+
+async function mapIpToUnit(ip_address) {
+  if (!ip_address || ip_address === 'N/A') {
+    return 'Desconhecido';
+  }
+  const units = await UnitMapping.find();
+  for (const unit of units) {
+    const startInt = ipToInt(unit.ip_range_start);
+    const endInt = ipToInt(unit.ip_range_end);
+    const ipInt = ipToInt(ip_address);
+    if (ipInt >= startInt && ipInt <= endInt) {
+      return unit.name;
+    }
+  }
+  return 'Desconhecido';
 }
 
 // === ROTAS ===
@@ -557,7 +595,7 @@ app.post('/api/devices/data', authenticate, [
     let data = req.body;
     logger.info(`Dados recebidos de ${req.ip}: ${JSON.stringify(data)}`);
 
-    // Usar os dados exatamente como recebidos
+    const location = await mapMacAddressRadioToLocation(data.mac_address_radio || 'N/A');
     const deviceData = {
       device_name: data.device_name || 'unknown',
       device_model: data.device_model || 'N/A',
@@ -567,8 +605,8 @@ app.post('/api/devices/data', authenticate, [
       battery: data.battery != null ? data.battery : null,
       network: data.network || 'N/A',
       host: data.host || 'N/A',
-      sector: data.sector || 'Desconhecido',
-      floor: data.floor || 'Desconhecido',
+      sector: location.sector, // Salvar diretamente no documento
+      floor: location.floor,   // Salvar diretamente no documento
       mac_address_radio: data.mac_address_radio || 'N/A',
       last_sync: data.last_sync || 'N/A',
       secure_android_id: data.secure_android_id || 'N/A',
@@ -579,9 +617,6 @@ app.post('/api/devices/data', authenticate, [
       wifi_submask: data.wifi_submask || 'N/A',
       last_seen: data.last_seen || new Date().toISOString(),
     };
-
-    // Logar dados recebidos para depuração
-    logger.debug(`Dados a serem salvos: ${JSON.stringify(deviceData)}`);
 
     const device = await Device.findOneAndUpdate(
       { serial_number: deviceData.serial_number },
@@ -636,11 +671,16 @@ app.post('/api/devices/heartbeat', authenticate, [
 });
 
 // Listar dispositivos
+// Listar dispositivos
 app.get('/api/devices', authenticate, async (req, res) => {
   try {
     const devices = await Device.find().lean();
-    logger.info(`Lista de dispositivos retornada: ${devices.length} dispositivos`);
-    res.status(200).json(devices);
+    const devicesWithUnit = await Promise.all(devices.map(async (device) => {
+      const unit = await mapIpToUnit(device.ip_address);
+      return { ...device, unit };
+    }));
+    logger.info(`Lista de dispositivos retornada: ${devicesWithUnit.length} dispositivos`);
+    res.status(200).json(devicesWithUnit);
   } catch (err) {
     logger.error(`Erro ao obter dispositivos: ${err.message}`);
     res.status(500).json({ error: 'Erro interno do servidor' });
@@ -890,6 +930,162 @@ app.get('/provision/:token', async (req, res) => {
   } catch (err) {
     logger.error(`Erro na página de provisionamento: ${err.message}`);
     res.status(500).send('Erro interno do servidor');
+  }
+});
+
+// Criar mapeamento de unidade
+const isValidIPv4 = (ip) => {
+  const ipv4Regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+  return ipv4Regex.test(ip);
+};
+
+app.post('/api/units', authenticate, async (req, res) => {
+  try {
+    const { name, ip_range_start, ip_range_end } = req.body;
+    if (!name || !ip_range_start || !ip_range_end) {
+      return res.status(400).json({ error: 'name, ip_range_start e ip_range_end são obrigatórios' });
+    }
+    if (!isValidIPv4(ip_range_start) || !isValidIPv4(ip_range_end)) {
+      return res.status(400).json({ error: 'ip_range_start e ip_range_end devem ser IPs válidos no formato xxx.xxx.xxx.xxx' });
+    }
+    const startInt = ipToInt(ip_range_start);
+    const endInt = ipToInt(ip_range_end);
+    if (startInt > endInt) {
+      return res.status(400).json({ error: 'ip_range_start deve ser menor ou igual a ip_range_end' });
+    }
+    const unit = new UnitMapping({ name, ip_range_start, ip_range_end });
+    await unit.save();
+    logger.info(`Unidade criada: ${name}`);
+    res.status(201).json(unit);
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.status(409).json({ error: 'Unidade com este nome já existe' });
+    }
+    logger.error(`Erro ao criar unidade: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor', details: err.message });
+  }
+});
+
+// Listar unidades
+app.get('/api/units', authenticate, async (req, res) => {
+  try {
+    const units = await UnitMapping.find().lean();
+    logger.info(`Lista de unidades retornada: ${units.length} unidades`);
+    res.status(200).json(units);
+  } catch (err) {
+    logger.error(`Erro ao obter unidades: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
+// Atualizar unidade
+app.put('/api/units/:name', authenticate, async (req, res) => {
+  try {
+    const { name, ip_range_start, ip_range_end } = req.body;
+    const unit = await UnitMapping.findOneAndUpdate(
+      { name: req.params.name },
+      { name, ip_range_start, ip_range_end },
+      { new: true }
+    );
+    if (!unit) {
+      return res.status(404).json({ error: 'Unidade não encontrada' });
+    }
+    logger.info(`Unidade atualizada: ${name}`);
+    res.status(200).json(unit);
+  } catch (err) {
+    logger.error(`Erro ao atualizar unidade: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
+// Excluir unidade
+app.delete('/api/units/:name', authenticate, async (req, res) => {
+  try {
+    const unit = await UnitMapping.findOneAndDelete({ name: req.params.name });
+    if (!unit) {
+      return res.status(404).json({ error: 'Unidade não encontrada' });
+    }
+    logger.info(`Unidade excluída: ${req.params.name}`);
+    res.status(200).json({ message: `Unidade ${req.params.name} excluída com sucesso` });
+  } catch (err) {
+    logger.error(`Erro ao excluir unidade: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
+// Criar mapeamento de BSSID
+app.post('/api/bssid-mappings', authenticate, [
+  body('mac_address_radio')
+    .notEmpty()
+    .matches(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/)
+    .withMessage('mac_address_radio deve ser um MAC válido'),
+  body('sector').notEmpty().withMessage('sector é obrigatório'),
+  body('floor').notEmpty().withMessage('floor é obrigatório'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    logger.warn(`Erros de validação: ${JSON.stringify(errors.array())}`);
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const { mac_address_radio, sector, floor } = req.body;
+    const mapping = new BssidMapping({ mac_address_radio, sector, floor });
+    await mapping.save();
+    logger.info(`Mapeamento de BSSID criado: ${mac_address_radio}`);
+    res.status(201).json(mapping);
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.status(409).json({ error: 'BSSID já mapeado' });
+    }
+    logger.error(`Erro ao criar mapeamento de BSSID: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
+// Listar mapeamentos de BSSID
+app.get('/api/bssid-mappings', authenticate, async (req, res) => {
+  try {
+    const mappings = await BssidMapping.find().lean();
+    logger.info(`Lista de mapeamentos de BSSID retornada: ${mappings.length} mapeamentos`);
+    res.status(200).json(mappings);
+  } catch (err) {
+    logger.error(`Erro ao obter mapeamentos de BSSID: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
+// Atualizar mapeamento de BSSID
+app.put('/api/bssid-mappings/:mac_address_radio', authenticate, async (req, res) => {
+  try {
+    const { sector, floor } = req.body;
+    const mapping = await BssidMapping.findOneAndUpdate(
+      { mac_address_radio: req.params.mac_address_radio },
+      { sector, floor },
+      { new: true }
+    );
+    if (!mapping) {
+      return res.status(404).json({ error: 'Mapeamento de BSSID não encontrado' });
+    }
+    logger.info(`Mapeamento de BSSID atualizado: ${req.params.mac_address_radio}`);
+    res.status(200).json(mapping);
+  } catch (err) {
+    logger.error(`Erro ao atualizar mapeamento de BSSID: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
+
+// Excluir mapeamento de BSSID
+app.delete('/api/bssid-mappings/:mac_address_radio', authenticate, async (req, res) => {
+  try {
+    const mapping = await BssidMapping.findOneAndDelete({ mac_address_radio: req.params.mac_address_radio });
+    if (!mapping) {
+      return res.status(404).json({ error: 'Mapeamento de BSSID não encontrado' });
+    }
+    logger.info(`Mapeamento de BSSID excluído: ${req.params.mac_address_radio}`);
+    res.status(200).json({ message: `Mapeamento de BSSID ${req.params.mac_address_radio} excluído com sucesso` });
+  } catch (err) {
+    logger.error(`Erro ao excluir mapeamento de BSSID: ${err.message}`);
+    res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
 
