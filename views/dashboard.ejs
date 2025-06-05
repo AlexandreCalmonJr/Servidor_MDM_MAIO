@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDM Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Biblioteca para gerar QR Codes -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 24px;
+      border-radius: 8px; /* Aumentado para um visual mais moderno */
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Adicionado transform */
+      transform: translateY(20px); /* Começa um pouco abaixo */
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0); /* Move para a posição final */
+    }
+    .toast.success {
+      background-color: #10b981; /* green-500 */
+    }
+    .toast.error {
+      background-color: #ef4444; /* red-500 */
+    }
+    body {
+        padding-top: 1rem;
+        font-family: 'Inter', sans-serif; /* Usando uma fonte mais comum e limpa */
+    }
+    /* Melhorias no modal */
+    .modal-content {
+        max-height: 80vh; /* Limita a altura do conteúdo do modal */
+        overflow-y: auto; /* Adiciona scroll se o conteúdo for maior */
+    }
+    /* Estilo para inputs dinâmicos nos modais */
+    .dynamic-input-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) auto; /* Ajustado para 3 colunas de input + botão */
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.5rem;
+        border: 1px solid #e5e7eb; /* gray-200 */
+        border-radius: 0.375rem; /* rounded-md */
+    }
+    .dynamic-input-row input, .dynamic-input-row select {
+        padding: 0.5rem;
+        border: 1px solid #d1d5db; /* gray-300 */
+        border-radius: 0.375rem; /* rounded-md */
+        font-size: 0.875rem; /* text-sm */
+    }
+     .dynamic-input-row button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem; /* text-xs */
+        color: #ef4444; /* red-500 */
+        background-color: transparent;
+        border: 1px solid #ef4444; /* red-500 */
+        border-radius: 0.375rem;
+        transition: background-color 0.2s, color 0.2s;
+    }
+    .dynamic-input-row button:hover {
+        background-color: #fee2e2; /* red-100 */
+        color: #b91c1c; /* red-700 */
+    }
+    #qrCodeImageContainer img {
+        margin: auto; /* Centraliza a imagem do QR Code se ela for menor que o container */
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
+  <div class="container mx-auto p-4 md:p-6 lg:p-8">
+    <!-- Cabeçalho -->
+    <header class="flex flex-col sm:flex-row justify-between items-center mb-8 pb-4 border-b border-gray-300">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-700">Painel de Gerenciamento MDM</h1>
+      <div id="authSection" class="flex items-center space-x-3 mt-4 sm:mt-0">
+        <input id="tokenInput" type="password" placeholder="Insira o token de admin" class="border rounded-lg p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto" />
+        <button id="loginButton" onclick="login()" class="bg-blue-600 text-white rounded-lg py-2 px-4 hover:bg-blue-700 shadow hover:shadow-lg transition duration-150 ease-in-out whitespace-nowrap">Entrar</button>
+        <button id="logoutButton" onclick="logout()" class="bg-red-600 text-white rounded-lg py-2 px-4 hover:bg-red-700 shadow hover:shadow-lg transition duration-150 ease-in-out hidden whitespace-nowrap">Sair</button>
+      </div>
+    </header>
+
+    <!-- Seções principais (serão mostradas/ocultas com base na autenticação) -->
+    <main id="mainContent" class="space-y-8 hidden">
+        <!-- Tabela de Dispositivos -->
+        <section id="devicesSection" class="bg-white shadow-xl rounded-lg overflow-hidden">
+          <div class="flex flex-col sm:flex-row justify-between items-center p-5 border-b border-gray-200 bg-gray-50">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-3 sm:mb-0">Dispositivos Conectados</h2>
+            <button onclick="fetchDevices()" class="bg-green-500 text-white rounded-lg py-2 px-4 hover:bg-green-600 shadow hover:shadow-lg transition duration-150 ease-in-out flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+              </svg>
+              Atualizar Dispositivos
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200" id="devicesTable">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Modelo</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">ID Android</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">IMEI</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Serial</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Bateria</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Setor</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Andar</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Última Sinc.</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Última Conexão</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status Prov.</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Ações</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="devicesBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Formulário para Enviar Comandos -->
+        <section id="commandSection" class="bg-white p-6 shadow-xl rounded-lg">
+          <h2 class="text-2xl font-semibold mb-6 text-gray-700 border-b pb-3">Enviar Comando para Dispositivo</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+            <div>
+              <label for="deviceSelect" class="block text-sm font-medium text-gray-700 mb-1">Dispositivo (Serial)</label>
+              <select id="deviceSelect" class="border rounded-lg p-2 w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white">
+                <option value="">Selecione um dispositivo</option>
+              </select>
+            </div>
+            <div>
+              <label for="commandSelect" class="block text-sm font-medium text-gray-700 mb-1">Comando</label>
+              <select id="commandSelect" class="border rounded-lg p-2 w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white" onchange="toggleCommandParams()">
+                <option value="lock">Bloquear Dispositivo</option>
+                <option value="wipe">Apagar Dados (Factory Reset)</option>
+                <option value="install_app">Instalar Aplicativo</option>
+                <option value="uninstall_app">Desinstalar Aplicativo</option>
+                <option value="set_maintenance">Definir Status de Manutenção</option>
+                <option value="get_device_info">Obter Informações Detalhadas</option>
+              </select>
+            </div>
+            <div id="packageNameDiv" class="hidden">
+              <label for="packageNameInput" class="block text-sm font-medium text-gray-700 mb-1">Nome do Pacote</label>
+              <input id="packageNameInput" type="text" placeholder="ex.: com.example.app" class="border rounded-lg p-2 w-full shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div id="apkUrlDiv" class="hidden">
+              <label for="apkUrlInput" class="block text-sm font-medium text-gray-700 mb-1">URL do APK</label>
+              <input id="apkUrlInput" type="text" placeholder="ex.: https://example.com/app.apk" class="border rounded-lg p-2 w-full shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div id="maintenanceStatusDiv" class="hidden md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="maintenanceStatusSelect" class="block text-sm font-medium text-gray-700 mb-1">Status da Manutenção</label>
+                    <select id="maintenanceStatusSelect" class="border rounded-lg p-2 w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white">
+                        <option value="true">Em Manutenção</option>
+                        <option value="false">Manutenção Concluída</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="maintenanceTicketInput" class="block text-sm font-medium text-gray-700 mb-1">Ticket de Manutenção (Opcional)</label>
+                    <input id="maintenanceTicketInput" type="text" placeholder="ex: HD-12345" class="border rounded-lg p-2 w-full shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+                </div>
+            </div>
+            <div class="md:col-span-2">
+              <button onclick="sendCommand()" class="bg-blue-600 text-white rounded-lg py-2 px-5 hover:bg-blue-700 w-full shadow hover:shadow-lg transition duration-150 ease-in-out">Enviar Comando</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção de Gerenciamento de Perfis de Configuração -->
+        <section id="configProfilesSection" class="bg-white p-6 shadow-xl rounded-lg">
+          <div class="flex flex-col sm:flex-row justify-between items-center mb-6 pb-3 border-b">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-3 sm:mb-0">Gerenciar Perfis de Configuração</h2>
+            <button onclick="openCreateProfileModal()" class="bg-purple-600 text-white rounded-lg py-2 px-4 hover:bg-purple-700 shadow hover:shadow-lg transition duration-150 ease-in-out">Novo Perfil</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Descrição</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Ações</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="configProfilesTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Seção de Geração de Tokens e QR Codes -->
+        <section id="tokenQrSection" class="bg-white p-6 shadow-xl rounded-lg">
+          <h2 class="text-2xl font-semibold mb-6 text-gray-700 border-b pb-3">Gerar Token de Provisionamento / Payload QR</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            <div class="border p-4 rounded-md shadow-sm">
+              <h3 class="text-xl font-medium mb-3 text-gray-600">Gerar Token Avulso</h3>
+              <div class="space-y-4">
+                <div>
+                  <label for="tokenOrg" class="block text-sm font-medium text-gray-700">Organização:</label>
+                  <input type="text" id="tokenOrg" value="MinhaEmpresa" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                  <label for="tokenProfileSelect" class="block text-sm font-medium text-gray-700">Perfil de Configuração:</label>
+                  <select id="tokenProfileSelect" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-white"></select>
+                </div>
+                <div>
+                  <label for="tokenMaxUses" class="block text-sm font-medium text-gray-700">Máximo de Usos:</label>
+                  <input type="number" id="tokenMaxUses" value="1" min="1" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                  <label for="tokenExpiresIn" class="block text-sm font-medium text-gray-700">Expira em (horas):</label>
+                  <input type="number" id="tokenExpiresIn" value="24" min="1" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <button onclick="generateProvisioningToken()" class="bg-indigo-600 text-white rounded-lg py-2 px-4 hover:bg-indigo-700 w-full shadow hover:shadow-lg transition duration-150 ease-in-out">Gerar Token</button>
+                <div id="generatedTokenArea" class="mt-3 p-3 bg-gray-100 rounded text-sm break-all border border-gray-200 min-h-[50px]"></div>
+              </div>
+            </div>
+
+            <div class="border p-4 rounded-md shadow-sm">
+              <h3 class="text-xl font-medium mb-3 text-gray-600">Gerar Payload para QR Code</h3>
+              <div class="space-y-4">
+                <div>
+                  <label for="qrOrg" class="block text-sm font-medium text-gray-700">Organização:</label>
+                  <input type="text" id="qrOrg" value="MinhaEmpresa" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                </div>
+                <div>
+                  <label for="qrProfileSelect" class="block text-sm font-medium text-gray-700">Perfil de Configuração:</label>
+                  <select id="qrProfileSelect" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-teal-500 focus:border-teal-500 bg-white"></select>
+                </div>
+                <div>
+                  <label for="qrApkFileName" class="block text-sm font-medium text-gray-700">Nome do Arquivo APK (na pasta /public):</label>
+                  <input type="text" id="qrApkFileName" value="mdm_client_base.apk" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                </div>
+                <h4 class="text-md font-semibold pt-2 text-gray-600">Wi-Fi para Provisionamento (Opcional):</h4>
+                <div>
+                  <label for="qrWifiSsid" class="block text-sm font-medium text-gray-700">SSID do Wi-Fi:</label>
+                  <input type="text" id="qrWifiSsid" placeholder="MinhaRedeWiFi" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                </div>
+                <div>
+                  <label for="qrWifiPassword" class="block text-sm font-medium text-gray-700">Senha do Wi-Fi:</label>
+                  <input type="password" id="qrWifiPassword" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                </div>
+                <button onclick="generateQrPayload()" class="bg-teal-500 text-white rounded-lg py-2 px-4 hover:bg-teal-600 w-full shadow hover:shadow-lg transition duration-150 ease-in-out">Gerar Payload e QR Code</button>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700">QR Code Gerado:</label>
+                    <div id="qrCodeImageContainer" class="mt-1 p-3 border rounded-md bg-white min-h-[200px] flex items-center justify-center shadow-sm">
+                        <!-- QR Code será renderizado aqui -->
+                        <span class="text-gray-400 text-sm">O QR Code aparecerá aqui</span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label class="block text-sm font-medium text-gray-700">Payload JSON (para QR):</label>
+                    <textarea id="generatedQrJsonArea" rows="6" class="mt-1 p-2 bg-gray-100 rounded text-sm w-full border border-gray-200 shadow-sm" readonly></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+    </main>
+
+    <!-- Modal para Criar/Editar Perfil de Configuração (inicialmente oculto) -->
+    <div id="profileModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 overflow-y-auto h-full w-full flex items-center justify-center hidden z-50 p-4">
+      <div class="relative mx-auto p-6 border w-full max-w-3xl shadow-2xl rounded-lg bg-white modal-content">
+        <div class="flex justify-between items-center mb-4 pb-3 border-b">
+            <h3 class="text-xl leading-6 font-semibold text-gray-900" id="profileModalTitle">Novo Perfil de Configuração</h3>
+            <button onclick="closeProfileModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+        </div>
+        <form id="profileForm" class="space-y-5">
+          <input type="hidden" id="profileEditName" />
+          <div>
+            <label for="profileName" class="block text-sm font-medium text-gray-700">Nome do Perfil (único):<span class="text-red-500">*</span></label>
+            <input type="text" id="profileName" required class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label for="profileDescription" class="block text-sm font-medium text-gray-700">Descrição:</label>
+            <textarea id="profileDescription" rows="2" class="mt-1 p-2 border rounded-md w-full shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+          </div>
+
+          <div class="border-t pt-4">
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Configurações de Wi-Fi:</h4>
+            <div id="wifiConfigsContainer" class="space-y-3"></div>
+            <button type="button" onclick="addWifiConfigRow()" class="mt-2 text-sm text-blue-600 hover:text-blue-800 hover:underline">+ Adicionar Configuração Wi-Fi</button>
+          </div>
+
+          <div class="border-t pt-4">
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Aplicativos Obrigatórios:</h4>
+            <div id="mandatoryAppsContainer" class="space-y-3"></div>
+            <button type="button" onclick="addMandatoryAppRow()" class="mt-2 text-sm text-blue-600 hover:text-blue-800 hover:underline">+ Adicionar App Obrigatório</button>
+          </div>
+
+          <div class="border-t pt-4">
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">Restrições do Dispositivo:</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-2">
+              <div><input type="checkbox" id="restrictionDisableCamera" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"><label for="restrictionDisableCamera" class="text-sm text-gray-700">Desabilitar Câmera</label></div>
+              <div><input type="checkbox" id="restrictionDisableDevOpts" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"><label for="restrictionDisableDevOpts" class="text-sm text-gray-700">Desabilitar Opções Dev.</label></div>
+              <div><input type="checkbox" id="restrictionDisallowInstall" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"><label for="restrictionDisallowInstall" class="text-sm text-gray-700">Proibir Instalar Apps</label></div>
+              <div><input type="checkbox" id="restrictionDisallowUninstall" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"><label for="restrictionDisallowUninstall" class="text-sm text-gray-700">Proibir Desinstalar Apps</label></div>
+              <div><input type="checkbox" id="restrictionDisallowConfigWifi" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"><label for="restrictionDisallowConfigWifi" class="text-sm text-gray-700">Proibir Config. Wi-Fi</label></div>
+              <div><input type="checkbox" id="restrictionDisallowFactoryReset" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"><label for="restrictionDisallowFactoryReset" class="text-sm text-gray-700">Proibir Factory Reset</label></div>
+              <!-- Adicione mais checkboxes para outras restrições conforme o schema do seu servidor -->
+            </div>
+          </div>
+        </form>
+        <div class="mt-6 flex justify-end space-x-3">
+          <button id="cancelProfileButton" onclick="closeProfileModal()" class="px-4 py-2 bg-gray-200 text-gray-700 text-base font-medium rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition ease-in-out duration-150">Cancelar</button>
+          <button id="saveProfileButton" onclick="saveProfile()" class="px-4 py-2 bg-green-600 text-white text-base font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ease-in-out duration-150">Salvar Perfil</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast para mensagens -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script>
+    const serverUrl = window.location.origin;
+    let authToken = localStorage.getItem('authToken') || '';
+    const mainContent = document.getElementById('mainContent'); // Referência ao container principal
+
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast show ${type}`;
+      setTimeout(() => {
+        toast.className = 'toast';
+      }, 3500); // Aumentado o tempo do toast
+    }
+
+    // ===== Lógica de Autenticação e UI Geral =====
+    function updateUI() {
+      const tokenInput = document.getElementById('tokenInput');
+      const loginButton = document.getElementById('loginButton');
+      const logoutButton = document.getElementById('logoutButton');
+
+      if (authToken) {
+        tokenInput.classList.add('hidden');
+        loginButton.classList.add('hidden');
+        logoutButton.classList.remove('hidden');
+        mainContent.classList.remove('hidden'); // Mostra o conteúdo principal
+        fetchDevices();
+        fetchConfigProfiles();
+      } else {
+        tokenInput.value = '';
+        tokenInput.classList.remove('hidden');
+        loginButton.classList.remove('hidden');
+        logoutButton.classList.add('hidden');
+        mainContent.classList.add('hidden'); // Oculta o conteúdo principal
+
+        // Limpa todas as seções de dados
+        document.getElementById('devicesBody').innerHTML = '<tr><td colspan="12" class="px-6 py-4 text-center text-gray-500">Faça login para ver os dispositivos.</td></tr>';
+        document.getElementById('deviceSelect').innerHTML = '<option value="">Selecione um dispositivo</option>';
+        document.getElementById('configProfilesTableBody').innerHTML = '<tr><td colspan="3" class="px-6 py-4 text-center text-gray-500">Faça login para ver os perfis.</td></tr>';
+        const profileSelects = [document.getElementById('tokenProfileSelect'), document.getElementById('qrProfileSelect')];
+        profileSelects.forEach(sel => { if (sel) sel.innerHTML = '<option value="">Selecione um Perfil</option>'; });
+        if(document.getElementById('generatedTokenArea')) document.getElementById('generatedTokenArea').textContent = '';
+        if(document.getElementById('generatedQrJsonArea')) document.getElementById('generatedQrJsonArea').value = '';
+        if(document.getElementById('qrCodeImageContainer')) document.getElementById('qrCodeImageContainer').innerHTML = '<span class="text-gray-400 text-sm">O QR Code aparecerá aqui</span>';
+      }
+    }
+
+    async function login() {
+      const tokenInput = document.getElementById('tokenInput');
+      const token = tokenInput.value.trim();
+      if (!token) {
+        showToast('Por favor, insira um token', 'error');
+        return;
+      }
+      try {
+        const response = await fetch(`${serverUrl}/api/devices`, {
+          headers: { 'Authorization': `Bearer ${token}` },
+        });
+        if (response.ok) {
+          authToken = token;
+          localStorage.setItem('authToken', token);
+          showToast('Autenticado com sucesso!');
+          updateUI(); // Chama updateUI que agora também busca perfis
+        } else if (response.status === 401 || response.status === 403) {
+          showToast('Token inválido ou não autorizado', 'error');
+        } else {
+          const errorData = await response.json().catch(() => ({ error: response.statusText }));
+          showToast(`Erro de autenticação: ${errorData?.error || response.statusText}`, 'error');
+        }
+      } catch (err) {
+        showToast('Erro de rede ao tentar autenticar. Verifique o console.', 'error');
+        console.error('Erro ao autenticar:', err);
+      }
+    }
+
+    function logout() {
+      authToken = '';
+      localStorage.removeItem('authToken');
+      showToast('Sessão encerrada.');
+      updateUI();
+    }
+
+    // ===== Lógica para Dispositivos (Existente, com pequenos ajustes) =====
+    async function fetchDevices() {
+      if (!authToken) return;
+      try {
+        const response = await fetch(`${serverUrl}/api/devices`, {
+          headers: { 'Authorization': `Bearer ${authToken}` },
+        });
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 403) {
+            showToast('Sua sessão expirou ou o token é inválido. Faça login novamente.', 'error');
+            logout();
+          } else {
+            showToast('Erro ao carregar dispositivos. Verifique o console.', 'error');
+          }
+          return;
+        }
+        const devices = await response.json();
+        populateDevicesTable(devices);
+        populateDeviceSelect(devices);
+      } catch (err) {
+        showToast('Erro de rede ao carregar dispositivos. Verifique o console.', 'error');
+        console.error('Erro ao carregar dispositivos:', err);
+      }
+    }
+
+    function populateDevicesTable(devices) {
+      const tbody = document.getElementById('devicesBody');
+      tbody.innerHTML = '';
+      if (!devices || devices.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="12" class="px-6 py-4 text-center text-gray-500">Nenhum dispositivo encontrado.</td></tr>';
+        return;
+      }
+      devices.forEach(device => {
+        const row = document.createElement('tr');
+        row.className = `transition-colors duration-150 ease-in-out ${device.maintenance_status ? 'bg-yellow-100 hover:bg-yellow-200' : (device.provisioning_status !== 'completed' ? 'bg-red-100 hover:bg-red-200' : 'hover:bg-gray-50')}`;
+        row.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${device.device_name || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.device_model || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.device_id || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.imei || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium">${device.serial_number || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.battery != null ? device.battery + '%' : 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.sector || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.floor || 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.last_sync && device.last_sync !== 'N/A' ? new Date(device.last_sync).toLocaleString('pt-BR') : 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${device.last_seen ? new Date(device.last_seen).toLocaleString('pt-BR') : 'N/A'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm">
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+              device.provisioning_status === 'completed' ? 'bg-green-100 text-green-800' :
+              device.provisioning_status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+              device.provisioning_status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+              'bg-red-100 text-red-800'
+            }">
+              ${device.provisioning_status || 'unknown'}
+            </span>
+            ${device.maintenance_status ? '<span class="ml-1 mt-1 sm:mt-0 inline-block px-2 text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">Manutenção</span>' : ''}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+            <button onclick="preFillCommand('${device.serial_number}')" class="text-indigo-600 hover:text-indigo-900" title="Enviar Comando">Comando</button>
+            <button onclick="deleteDevice('${device.serial_number}')" class="text-red-600 hover:text-red-900" title="Excluir Dispositivo">Excluir</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function populateDeviceSelect(devices) {
+      const select = document.getElementById('deviceSelect');
+      const currentSelectedValue = select.value;
+      select.innerHTML = '<option value="">Selecione um dispositivo</option>';
+      if (!devices) return;
+      devices.forEach(device => {
+        const option = document.createElement('option');
+        option.value = device.serial_number;
+        option.textContent = `${device.device_name || 'Dispositivo Sem Nome'} (Serial: ${device.serial_number || 'N/A'})`;
+        select.appendChild(option);
+      });
+      if (devices.some(d => d.serial_number === currentSelectedValue)) {
+        select.value = currentSelectedValue;
+      }
+    }
+
+    function preFillCommand(serialNumber) {
+      document.getElementById('deviceSelect').value = serialNumber;
+      showToast(`Dispositivo ${serialNumber} pré-selecionado para comando.`);
+      document.getElementById('commandSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleCommandParams() {
+        const command = document.getElementById('commandSelect').value;
+        document.getElementById('packageNameDiv').classList.toggle('hidden', !['install_app', 'uninstall_app', 'update_app'].includes(command));
+        document.getElementById('apkUrlDiv').classList.toggle('hidden', !['install_app', 'update_app'].includes(command));
+        document.getElementById('maintenanceStatusDiv').classList.toggle('hidden', command !== 'set_maintenance');
+    }
+
+    async function sendCommand() {
+      const serialNumber = document.getElementById('deviceSelect').value;
+      const command = document.getElementById('commandSelect').value;
+      const packageName = document.getElementById('packageNameInput').value.trim();
+      const apkUrl = document.getElementById('apkUrlInput').value.trim();
+      const maintenanceStatus = document.getElementById('maintenanceStatusSelect').value === 'true';
+      const maintenanceTicket = document.getElementById('maintenanceTicketInput').value.trim();
+
+      if (!serialNumber) {
+        showToast('Selecione um dispositivo', 'error');
+        return;
+      }
+
+      const payload = { serial_number: serialNumber, command: command };
+
+      if (command === 'install_app' || command === 'update_app') {
+        if (!packageName || !apkUrl) {
+          showToast('Para instalar/atualizar app, Nome do Pacote e URL do APK são obrigatórios.', 'error');
+          return;
+        }
+        payload.parameters = { packageName: packageName, apkUrl: apkUrl };
+      } else if (command === 'uninstall_app') {
+        if (!packageName) {
+          showToast('Para desinstalar app, Nome do Pacote é obrigatório.', 'error');
+          return;
+        }
+        payload.parameters = { packageName: packageName };
+      } else if (command === 'set_maintenance') {
+        payload.maintenance_status = maintenanceStatus;
+        if (maintenanceTicket) payload.maintenance_ticket = maintenanceTicket;
+        payload.maintenance_history_entry = {
+            timestamp: new Date().toISOString(),
+            status: maintenanceStatus ? "Iniciada Manutenção" : "Finalizada Manutenção",
+            ticket: maintenanceTicket || "N/A"
+        };
+      }
+      console.log('Enviando payload de comando:', JSON.stringify(payload));
+      try {
+        const response = await fetch(`${serverUrl}/api/executeCommand`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          showToast(result.message || 'Comando enviado com sucesso!');
+          fetchDevices();
+        } else {
+          showToast(result.error || `Erro ${response.status} ao enviar comando.`, 'error');
+        }
+      } catch (err) {
+        showToast('Erro de rede ao enviar comando. Verifique o console.', 'error');
+        console.error('Erro ao enviar comando:', err);
+      }
+    }
+
+    async function deleteDevice(serialNumber) {
+        if (!serialNumber || !confirm(`Tem certeza que deseja excluir o dispositivo com serial ${serialNumber}? Esta ação não pode ser desfeita.`)) {
+            return;
+        }
+        if (!authToken) { showToast('Não autenticado.', 'error'); return; }
+        try {
+            const response = await fetch(`${serverUrl}/api/devices/${serialNumber}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${authToken}` },
+            });
+            const result = await response.json();
+            if (response.ok) {
+                showToast(result.message || `Dispositivo ${serialNumber} excluído com sucesso.`);
+                fetchDevices();
+            } else {
+                showToast(result.error || `Erro ao excluir dispositivo ${serialNumber}.`, 'error');
+            }
+        } catch (err) {
+            showToast('Erro de rede ao excluir dispositivo. Verifique o console.', 'error');
+            console.error(`Erro ao excluir dispositivo ${serialNumber}:`, err);
+        }
+    }
+
+    // ===== Funções para Gerenciamento de Perfis de Configuração =====
+    const profileModal = document.getElementById('profileModal');
+    const profileForm = document.getElementById('profileForm');
+    const profileModalTitle = document.getElementById('profileModalTitle');
+    const profileEditNameField = document.getElementById('profileEditName');
+    const profileNameField = document.getElementById('profileName');
+    const profileDescriptionField = document.getElementById('profileDescription');
+    const wifiConfigsContainer = document.getElementById('wifiConfigsContainer');
+    const mandatoryAppsContainer = document.getElementById('mandatoryAppsContainer');
+
+    // RESTRICTIONS CHECKBOXES IDs (para fácil referência)
+    const restrictionCheckboxes = {
+        disable_camera: 'restrictionDisableCamera',
+        disable_developer_options: 'restrictionDisableDevOpts',
+        DISALLOW_INSTALL_APPS: 'restrictionDisallowInstall',
+        DISALLOW_UNINSTALL_APPS: 'restrictionDisallowUninstall',
+        DISALLOW_CONFIG_WIFI: 'restrictionDisallowConfigWifi',
+        DISALLOW_FACTORY_RESET: 'restrictionDisallowFactoryReset'
+        // Adicione outras chaves de restrição do seu schema do servidor e os IDs dos checkboxes correspondentes
+    };
+
+
+    async function fetchConfigProfiles() {
+        if (!authToken) return;
+        try {
+            const response = await fetch(`${serverUrl}/api/config-profiles`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            if (!response.ok) throw new Error(`Erro ao buscar perfis: ${response.statusText}`);
+            const profiles = await response.json();
+            populateConfigProfilesTable(profiles);
+            populateProfileSelects(profiles);
+        } catch (err) {
+            showToast(`Erro ao carregar perfis: ${err.message}`, 'error');
+            console.error('Erro ao carregar perfis:', err);
+        }
+    }
+
+    function populateConfigProfilesTable(profiles) {
+        const tbody = document.getElementById('configProfilesTableBody');
+        tbody.innerHTML = '';
+        if (!profiles || profiles.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="3" class="px-6 py-4 text-center text-gray-500">Nenhum perfil de configuração encontrado.</td></tr>';
+            return;
+        }
+        profiles.forEach(profile => {
+            const row = tbody.insertRow();
+            row.className = 'hover:bg-gray-50 transition-colors duration-150 ease-in-out';
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${profile.name}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 max-w-xs truncate" title="${profile.description || ''}">${profile.description || 'N/A'}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                    <button onclick="openEditProfileModal('${profile.name}')" class="text-indigo-600 hover:text-indigo-900" title="Editar Perfil">Editar</button>
+                    <button onclick="deleteConfigProfile('${profile.name}')" class="text-red-600 hover:text-red-900" title="Excluir Perfil">Excluir</button>
+                </td>
+            `;
+        });
+    }
+
+    function populateProfileSelects(profiles) {
+        const selects = [document.getElementById('tokenProfileSelect'), document.getElementById('qrProfileSelect')];
+        selects.forEach(select => {
+            if (!select) return;
+            const currentVal = select.value;
+            select.innerHTML = '<option value="">Selecione um Perfil</option>';
+            profiles.forEach(profile => {
+                const option = document.createElement('option');
+                option.value = profile.name;
+                option.textContent = profile.name;
+                select.appendChild(option);
+            });
+            if (profiles.some(p => p.name === currentVal)) {
+                 select.value = currentVal;
+            }
+        });
+    }
+
+    function openCreateProfileModal() {
+        profileModalTitle.textContent = 'Novo Perfil de Configuração';
+        profileForm.reset();
+        profileEditNameField.value = '';
+        profileNameField.disabled = false;
+        wifiConfigsContainer.innerHTML = '';
+        mandatoryAppsContainer.innerHTML = '';
+        addWifiConfigRow();
+        addMandatoryAppRow();
+        Object.values(restrictionCheckboxes).forEach(id => document.getElementById(id).checked = false);
+        profileModal.classList.remove('hidden');
+    }
+
+    async function openEditProfileModal(profileName) {
+        if (!authToken) return;
+        try {
+            const response = await fetch(`${serverUrl}/api/config-profiles/${profileName}`, {
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            if (!response.ok) throw new Error('Perfil não encontrado ou erro ao buscar.');
+            const profile = await response.json();
+
+            profileModalTitle.textContent = `Editar Perfil: ${profile.name}`;
+            profileForm.reset();
+            profileEditNameField.value = profile.name;
+            profileNameField.value = profile.name;
+            profileNameField.disabled = true;
+            profileDescriptionField.value = profile.description || '';
+
+            wifiConfigsContainer.innerHTML = '';
+            (profile.settings.wifi_configs || []).forEach(wifi => addWifiConfigRow(wifi.ssid, wifi.password, wifi.security_type));
+            if (!profile.settings.wifi_configs || profile.settings.wifi_configs.length === 0) addWifiConfigRow();
+
+            mandatoryAppsContainer.innerHTML = '';
+            (profile.settings.mandatory_apps || []).forEach(app => addMandatoryAppRow(app.package_name, app.apk_url, app.version));
+            if (!profile.settings.mandatory_apps || profile.settings.mandatory_apps.length === 0) addMandatoryAppRow();
+
+            const restrictions = profile.settings.restrictions || {};
+            for (const key in restrictionCheckboxes) {
+                if (document.getElementById(restrictionCheckboxes[key])) {
+                    document.getElementById(restrictionCheckboxes[key]).checked = restrictions[key] || false;
+                }
+            }
+            profileModal.classList.remove('hidden');
+        } catch (err) {
+            showToast(`Erro ao carregar perfil para edição: ${err.message}`, 'error');
+        }
+    }
+
+    function closeProfileModal() {
+        profileModal.classList.add('hidden');
+    }
+
+    function addWifiConfigRow(ssid = '', password = '', security_type = 'WPA') {
+        const div = document.createElement('div');
+        div.className = 'dynamic-input-row'; // Usando a classe CSS definida
+        div.innerHTML = `
+            <input type="text" placeholder="SSID da Rede Wi-Fi" value="${ssid}" class="wifi-ssid" title="Nome da Rede Wi-Fi">
+            <input type="password" placeholder="Senha do Wi-Fi" value="${password}" class="wifi-password" title="Senha da Rede Wi-Fi">
+            <select class="wifi-security" title="Tipo de Segurança do Wi-Fi">
+                <option value="WPA" ${security_type === 'WPA' ? 'selected' : ''}>WPA/WPA2</option>
+                <option value="WEP" ${security_type === 'WEP' ? 'selected' : ''}>WEP</option>
+                <option value="NONE" ${security_type === 'NONE' ? 'selected' : ''}>Nenhuma</option>
+            </select>
+            <button type="button" onclick="this.closest('.dynamic-input-row').remove()" title="Remover esta configuração de Wi-Fi">Remover</button>
+        `;
+        wifiConfigsContainer.appendChild(div);
+    }
+
+    function addMandatoryAppRow(packageName = '', apkUrl = '', version = '') {
+        const div = document.createElement('div');
+        div.className = 'dynamic-input-row'; // Usando a classe CSS definida
+        div.innerHTML = `
+            <input type="text" placeholder="Pacote (com.exemplo.app)" value="${packageName}" class="mandatory-package" title="Nome do Pacote do Aplicativo">
+            <input type="text" placeholder="URL completa do APK" value="${apkUrl}" class="mandatory-apkurl" title="URL para download do APK">
+            <input type="text" placeholder="Versão (ex: 1.0.0)" value="${version}" class="mandatory-version" title="Versão do Aplicativo">
+            <button type="button" onclick="this.closest('.dynamic-input-row').remove()" title="Remover este aplicativo obrigatório">Remover</button>
+        `;
+        mandatoryAppsContainer.appendChild(div);
+    }
+
+    async function saveProfile() {
+        if (!authToken) return;
+        const isEditMode = !!profileEditNameField.value;
+        const profileName = isEditMode ? profileEditNameField.value : profileNameField.value.trim();
+
+        if (!profileName) {
+            showToast('O nome do perfil é obrigatório.', 'error');
+            return;
+        }
+
+        const wifi_configs = Array.from(wifiConfigsContainer.querySelectorAll('.dynamic-input-row')).map(row => ({
+            ssid: row.querySelector('.wifi-ssid').value.trim(),
+            password: row.querySelector('.wifi-password').value,
+            security_type: row.querySelector('.wifi-security').value
+        })).filter(wifi => wifi.ssid);
+
+        const mandatory_apps = Array.from(mandatoryAppsContainer.querySelectorAll('.dynamic-input-row')).map(row => ({
+            package_name: row.querySelector('.mandatory-package').value.trim(),
+            apk_url: row.querySelector('.mandatory-apkurl').value.trim(),
+            version: row.querySelector('.mandatory-version').value.trim()
+        })).filter(app => app.package_name && app.apk_url);
+
+        const restrictionsPayload = {};
+        for (const key in restrictionCheckboxes) {
+            const checkbox = document.getElementById(restrictionCheckboxes[key]);
+            if (checkbox) { // Verifica se o checkbox existe no DOM
+                restrictionsPayload[key] = checkbox.checked;
+            }
+        }
+
+        const payload = {
+            description: profileDescriptionField.value.trim(),
+            settings: {
+                wifi_configs: wifi_configs,
+                mandatory_apps: mandatory_apps,
+                restrictions: restrictionsPayload
+            }
+        };
+        if (!isEditMode) { // Só envia o nome na criação
+             payload.name = profileName;
+        }
+
+        const url = isEditMode ? `${serverUrl}/api/config-profiles/${profileName}` : `${serverUrl}/api/config-profiles`;
+        const method = isEditMode ? 'PUT' : 'POST';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (response.ok) {
+                showToast(`Perfil '${profileName}' ${isEditMode ? 'atualizado' : 'criado'} com sucesso!`);
+                closeProfileModal();
+                fetchConfigProfiles();
+            } else {
+                showToast(result.error || `Erro ao salvar perfil: ${response.statusText}`, 'error');
+            }
+        } catch (err) {
+            showToast(`Erro de rede ao salvar perfil: ${err.message}`, 'error');
+            console.error('Erro ao salvar perfil:', err);
+        }
+    }
+
+    async function deleteConfigProfile(profileName) {
+        if (!authToken || !confirm(`Tem certeza que deseja excluir o perfil '${profileName}'? Esta ação não pode ser desfeita e pode afetar tokens de provisionamento ativos.`)) {
+            return;
+        }
+        try {
+            const response = await fetch(`${serverUrl}/api/config-profiles/${profileName}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${authToken}` }
+            });
+            const result = await response.json();
+            if (response.ok) {
+                showToast(result.message || `Perfil '${profileName}' excluído com sucesso.`);
+                fetchConfigProfiles();
+            } else {
+                showToast(result.error || `Erro ao excluir perfil: ${response.statusText}`, 'error');
+            }
+        } catch (err) {
+            showToast(`Erro de rede ao excluir perfil: ${err.message}`, 'error');
+            console.error('Erro ao excluir perfil:', err);
+        }
+    }
+
+    // ===== Funções para Geração de Token e QR Code =====
+    const generatedTokenArea = document.getElementById('generatedTokenArea');
+    const generatedQrJsonArea = document.getElementById('generatedQrJsonArea');
+    const qrCodeImageContainer = document.getElementById('qrCodeImageContainer');
+    let qrCodeInstance = null; // Para manter a instância do QRCode e poder limpar/atualizar
+
+    async function generateProvisioningToken() {
+        if (!authToken) return;
+        const organization = document.getElementById('tokenOrg').value.trim();
+        const config_profile = document.getElementById('tokenProfileSelect').value;
+        const max_uses = parseInt(document.getElementById('tokenMaxUses').value) || 1;
+        const expires_in_hours = parseInt(document.getElementById('tokenExpiresIn').value) || 24;
+
+        if (!organization || !config_profile) {
+            showToast('Organização e Perfil de Configuração são obrigatórios para gerar token.', 'error');
+            return;
+        }
+        try {
+            const response = await fetch(`${serverUrl}/api/provisioning/generate-token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+                body: JSON.stringify({ organization, config_profile, max_uses, expires_in_hours })
+            });
+            const result = await response.json();
+            if (response.ok) {
+                generatedTokenArea.innerHTML = `
+                    <p class="mb-1"><strong>Token:</strong> <code class="bg-gray-200 p-1 rounded">${result.token}</code></p>
+                    <p class="mb-1"><strong>Expira em:</strong> ${new Date(result.expires_at).toLocaleString('pt-BR')}</p>
+                    ${result.provisioning_url_web ? `<p><strong>URL Web:</strong> <a href="${result.provisioning_url_web}" target="_blank" class="text-blue-600 hover:underline">${result.provisioning_url_web}</a></p>` : ''}
+                `;
+                showToast('Token de provisionamento gerado com sucesso!');
+            } else {
+                generatedTokenArea.textContent = `Erro: ${result.error || response.statusText}`;
+                showToast(result.error || 'Erro ao gerar token.', 'error');
+            }
+        } catch (err) {
+            generatedTokenArea.textContent = `Erro de rede: ${err.message}`;
+            showToast('Erro de rede ao gerar token.', 'error');
+        }
+    }
+
+    async function generateQrPayload() {
+        if (!authToken) return;
+        const organization = document.getElementById('qrOrg').value.trim();
+        const config_profile_name = document.getElementById('qrProfileSelect').value;
+        const apk_file_name = document.getElementById('qrApkFileName').value.trim() || 'mdm_client_base.apk';
+        const wifi_ssid = document.getElementById('qrWifiSsid').value.trim();
+        const wifi_password = document.getElementById('qrWifiPassword').value;
+
+        if (!organization || !config_profile_name) {
+            showToast('Organização e Perfil de Configuração são obrigatórios para gerar payload QR.', 'error');
+            return;
+        }
+        const payload = { organization, config_profile_name, apk_file_name };
+        if (wifi_ssid) {
+            payload.wifi_ssid = wifi_ssid;
+            payload.wifi_password = wifi_password;
+        }
+        try {
+            const response = await fetch(`${serverUrl}/api/provisioning/qr-payload`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+                body: JSON.stringify(payload)
+            });
+            const resultJson = await response.json();
+            if (response.ok) {
+                generatedQrJsonArea.value = JSON.stringify(resultJson, null, 2);
+                qrCodeImageContainer.innerHTML = ''; // Limpa container
+                qrCodeInstance = new QRCode(qrCodeImageContainer, {
+                    text: JSON.stringify(resultJson),
+                    width: 192, // Aumentado um pouco
+                    height: 192,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+                showToast('Payload QR e QR Code gerados com sucesso!');
+            } else {
+                generatedQrJsonArea.value = `Erro: ${resultJson.error || response.statusText}`;
+                qrCodeImageContainer.innerHTML = '<p class="text-red-500 p-4 text-center">Falha ao gerar QR Code</p>';
+                showToast(resultJson.error || 'Erro ao gerar payload QR.', 'error');
+            }
+        } catch (err) {
+            generatedQrJsonArea.value = `Erro de rede: ${err.message}`;
+            qrCodeImageContainer.innerHTML = '<p class="text-red-500 p-4 text-center">Erro de rede ao gerar QR</p>';
+            showToast('Erro de rede ao gerar payload QR.', 'error');
+        }
+    }
+
+    // ===== Inicialização e Timers =====
+    document.addEventListener('DOMContentLoaded', () => {
+        updateUI();
+        toggleCommandParams();
+        setInterval(() => {
+            if (authToken) { // Só atualiza dispositivos e perfis se estiver logado
+                fetchDevices();
+                fetchConfigProfiles(); // Atualiza perfis periodicamente também
+            }
+        }, 45000); // Atualiza a cada 45 segundos
+    });
+  </script>
+</body>
+</html>

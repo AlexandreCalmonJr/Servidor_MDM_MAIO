@@ -2289,3 +2289,167 @@
 {"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=123456789 from 192.168.0.6","timestamp":"2025-06-01T13:46:07.927Z"}
 {"level":"info","message":"Requisição recebida: GET /public/apks.json from 192.168.0.6","timestamp":"2025-06-01T13:46:37.698Z"}
 {"level":"info","message":"Listando 2 APKs disponíveis na pasta public","timestamp":"2025-06-01T13:46:37.708Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.183:3000","timestamp":"2025-06-05T00:40:48.120Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.183:3000/provision/{token}","timestamp":"2025-06-05T00:40:48.129Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://192.168.0.183:3000/dashboard","timestamp":"2025-06-05T00:40:48.134Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-05T00:40:48.146Z"}
+{"level":"info","message":"Requisição recebida: GET /dashboard from 192.168.0.183","timestamp":"2025-06-05T00:40:50.344Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.183:3000","timestamp":"2025-06-05T00:43:31.729Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.183:3000/provision/{token}","timestamp":"2025-06-05T00:43:31.735Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://192.168.0.183:3000/dashboard","timestamp":"2025-06-05T00:43:31.743Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-05T00:43:31.758Z"}
+{"level":"info","message":"Requisição recebida: GET /dashboard from 192.168.0.183","timestamp":"2025-06-05T00:43:33.900Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:43:34.107Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:43:34.109Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:43:34.115Z"}
+{"level":"info","message":"Requisição recebida: POST /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:43:59.954Z"}
+{"level":"warn","message":"Tentativa de criar perfil de configuração com nome já existente: Test","timestamp":"2025-06-05T00:43:59.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:44:19.111Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:44:19.112Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:44:19.115Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:44:19.117Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/generate-token from 192.168.0.183","timestamp":"2025-06-05T00:44:27.827Z"}
+{"level":"info","message":"Token de provisionamento gerado: 4120932562bd26f53b0d29f00c52bac5f5e5a99e6d3a42c5535e728c1ac432e9 para MinhaEmpresa com perfil Test","timestamp":"2025-06-05T00:44:27.831Z"}
+{"level":"info","message":"Requisição recebida: GET /provision/4120932562bd26f53b0d29f00c52bac5f5e5a99e6d3a42c5535e728c1ac432e9 from 192.168.0.183","timestamp":"2025-06-05T00:44:30.064Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/generate-token from 192.168.0.183","timestamp":"2025-06-05T00:44:33.747Z"}
+{"level":"info","message":"Token de provisionamento gerado: 400def1cd6e7f603c7020327e78d6fb24eaceb852422a937c4b4a6fb511b18de para MinhaEmpresa com perfil Test","timestamp":"2025-06-05T00:44:33.750Z"}
+{"level":"info","message":"Requisição recebida: GET /provision/400def1cd6e7f603c7020327e78d6fb24eaceb852422a937c4b4a6fb511b18de from 192.168.0.183","timestamp":"2025-06-05T00:44:35.263Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/qr-payload from 192.168.0.183","timestamp":"2025-06-05T00:44:41.755Z"}
+{"level":"info","message":"Token de provisionamento 5b84946a2a387105f6ab3fd52c564d3591f600a05a13922ef35bdc728783504e gerado para QR Code, organização MinhaEmpresa, perfil Test","timestamp":"2025-06-05T00:44:41.760Z"}
+{"level":"info","message":"Payload QR gerado para MinhaEmpresa: {\"android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME\":\"com.example.mdm_client_base/.DeviceAdminReceiver\",\"android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_NAME\":\"com.example.mdm_client_base\",\"android.app.extra.PROVISIONING_DOWNLOAD_URL\":\"http://192.168.0.183:3000/public/mdm_client_base.apk\",\"android.app.extra.PROVISIONING_SKIP_ENCRYPTION\":true,\"android.app.extra.PROVISIONING_LEAVE_ALL_SYSTEM_APPS_ENABLED\":true,\"android.app.extra.PROVISIONING_ADMIN_EXTRAS_BUNDLE\":{\"server_url\":\"http://192.168.0.183:3000\",\"provisioning_token\":\"5b84946a2a387105f6ab3fd52c564d3591f600a05a13922ef35bdc728783504e\",\"auth_token_main\":\"hap@2025\"},\"android.app.extra.PROVISIONING_LOCALE\":\"pt_BR\",\"android.app.extra.PROVISIONING_TIME_ZONE\":\"America/Sao_Paulo\"}","timestamp":"2025-06-05T00:44:41.765Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:45:04.108Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:45:04.110Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:45:04.112Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:45:04.114Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:45:49.122Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:45:49.123Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:45:49.124Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:45:49.125Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:46:34.123Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:46:34.124Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:46:34.126Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:46:34.127Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:47:19.121Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:47:19.123Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:47:19.124Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:47:19.125Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:48:04.123Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:48:04.124Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:48:04.126Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:48:04.127Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:48:49.116Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:48:49.117Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:48:49.119Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:48:49.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:49:34.107Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:49:34.109Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:49:34.110Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:49:34.111Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:50:19.126Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:50:19.128Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:50:19.129Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:50:19.130Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:51:20.131Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:51:20.132Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:51:20.134Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:51:20.135Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:52:01.126Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:52:01.128Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:52:01.129Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:52:01.131Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:53:01.118Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:53:01.119Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:53:01.121Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:53:01.122Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:54:01.119Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:54:01.121Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:54:01.122Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:54:01.123Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:54:32.216Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:54:32.218Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:54:32.220Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:54:32.221Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:54:49.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:54:49.121Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:54:49.122Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:54:49.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:55:34.123Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:55:34.124Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:55:34.126Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:55:34.127Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:56:35.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:56:35.121Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:56:35.123Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:56:35.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:57:36.117Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:57:36.118Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:57:36.119Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:57:36.121Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:58:01.129Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:58:01.131Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:58:01.133Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:58:01.134Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T00:59:01.123Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T00:59:01.124Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T00:59:01.126Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T00:59:01.127Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:00:01.116Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:00:01.117Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:00:01.119Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:00:01.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:01:01.121Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:01:01.122Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:01:01.123Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:01:01.125Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:02:01.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:02:01.125Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:02:01.127Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:02:01.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:03:01.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:03:01.125Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:03:01.127Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:03:01.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:04:01.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:04:01.121Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:04:01.123Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:04:01.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:05:01.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:05:01.129Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:05:01.132Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:05:01.133Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:06:01.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:06:01.121Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:06:01.123Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:06:01.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:07:01.126Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:07:01.127Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:07:01.128Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:07:01.129Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:08:01.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:08:01.122Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:08:01.123Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:08:01.125Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:09:01.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:09:01.121Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:09:01.123Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:09:01.124Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:10:01.118Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:10:01.120Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:10:01.122Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:10:01.123Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:11:01.125Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:11:01.127Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:11:01.128Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:11:01.129Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:12:01.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:12:01.129Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:12:01.130Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:12:01.131Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:13:01.130Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:13:01.131Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:13:01.134Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:13:01.136Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 192.168.0.183","timestamp":"2025-06-05T01:14:01.115Z"}
+{"level":"info","message":"Requisição recebida: GET /api/config-profiles from 192.168.0.183","timestamp":"2025-06-05T01:14:01.117Z"}
+{"level":"info","message":"Listando 1 perfis de configuração.","timestamp":"2025-06-05T01:14:01.118Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 1 dispositivos","timestamp":"2025-06-05T01:14:01.119Z"}
