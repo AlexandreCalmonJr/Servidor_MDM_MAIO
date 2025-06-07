@@ -2289,3 +2289,59 @@
 {"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=123456789 from 192.168.0.6","timestamp":"2025-06-01T13:46:07.927Z"}
 {"level":"info","message":"Requisição recebida: GET /public/apks.json from 192.168.0.6","timestamp":"2025-06-01T13:46:37.698Z"}
 {"level":"info","message":"Listando 2 APKs disponíveis na pasta public","timestamp":"2025-06-01T13:46:37.708Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.183:3000","timestamp":"2025-06-07T00:01:32.485Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.183:3000/provision/{token}","timestamp":"2025-06-07T00:01:32.494Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://192.168.0.183:3000/dashboard (acesse com token)","timestamp":"2025-06-07T00:01:32.498Z"}
+{"level":"info","message":"Atualizando caches de mapeamento (BSSID e Unidades)...","timestamp":"2025-06-07T00:01:32.500Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-07T00:01:32.519Z"}
+{"level":"info","message":"Caches atualizados: 1 BSSIDs, 1 Unidades.","timestamp":"2025-06-07T00:01:32.548Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.183:3000","timestamp":"2025-06-07T00:13:08.125Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.183:3000/provision/{token}","timestamp":"2025-06-07T00:13:08.131Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://192.168.0.183:3000/dashboard (acesse com token)","timestamp":"2025-06-07T00:13:08.135Z"}
+{"level":"info","message":"🔧 Admin Provisioning disponível em: http://192.168.0.183:3000/admin/provisioning","timestamp":"2025-06-07T00:13:08.141Z"}
+{"level":"info","message":"📦 APKs disponíveis em: http://192.168.0.183:3000/public/apks.json","timestamp":"2025-06-07T00:13:08.146Z"}
+{"level":"info","message":"🔑 Painel de Provisionamento: http://192.168.0.183:3000/admin/provisioning","timestamp":"2025-06-07T00:13:08.150Z"}
+{"level":"info","message":"Atualizando caches de mapeamento (BSSID e Unidades)...","timestamp":"2025-06-07T00:13:08.150Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-07T00:13:08.174Z"}
+{"level":"info","message":"Caches atualizados: 1 BSSIDs, 1 Unidades.","timestamp":"2025-06-07T00:13:08.195Z"}
+{"level":"info","message":"Requisição recebida: GET /admin/provisioning from 192.168.0.183","timestamp":"2025-06-07T00:13:12.502Z"}
+{"level":"info","message":"Requisição recebida: GET /public/apks.json from 192.168.0.183","timestamp":"2025-06-07T00:13:18.541Z"}
+{"level":"info","message":"Requisição recebida: GET /favicon.ico from 192.168.0.183","timestamp":"2025-06-07T00:13:18.548Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/generate-qr-data from 192.168.0.183","timestamp":"2025-06-07T00:17:51.031Z"}
+{"level":"info","message":"Token de provisionamento único gerado: 7a8e196ca91e4c8bb847165d0989671c11ca514c3faea862aad5512c72a951c5","timestamp":"2025-06-07T00:17:51.047Z"}
+{"level":"error","message":"Erro ao gerar dados do QR: createReadStream is not defined","timestamp":"2025-06-07T00:17:51.052Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/generate-qr-data from 192.168.0.183","timestamp":"2025-06-07T00:17:54.981Z"}
+{"level":"info","message":"Token de provisionamento único gerado: 90cc100f993fd8423b96d849ca32d16930175e7bf4a5a7295c84f8aac3e6fa38","timestamp":"2025-06-07T00:17:54.985Z"}
+{"level":"error","message":"Erro ao gerar dados do QR: createReadStream is not defined","timestamp":"2025-06-07T00:17:54.990Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.183:3000","timestamp":"2025-06-07T00:20:51.204Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.183:3000/provision/{token}","timestamp":"2025-06-07T00:20:51.210Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://192.168.0.183:3000/dashboard (acesse com token)","timestamp":"2025-06-07T00:20:51.214Z"}
+{"level":"info","message":"🔧 Admin Provisioning disponível em: http://192.168.0.183:3000/admin/provisioning","timestamp":"2025-06-07T00:20:51.219Z"}
+{"level":"info","message":"📦 APKs disponíveis em: http://192.168.0.183:3000/public/apks.json","timestamp":"2025-06-07T00:20:51.226Z"}
+{"level":"info","message":"🔑 Painel de Provisionamento: http://192.168.0.183:3000/admin/provisioning","timestamp":"2025-06-07T00:20:51.230Z"}
+{"level":"info","message":"Atualizando caches de mapeamento (BSSID e Unidades)...","timestamp":"2025-06-07T00:20:51.230Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-07T00:20:51.253Z"}
+{"level":"info","message":"Caches atualizados: 1 BSSIDs, 1 Unidades.","timestamp":"2025-06-07T00:20:51.271Z"}
+{"level":"info","message":"Requisição recebida: GET /admin/provisioning from 192.168.0.183","timestamp":"2025-06-07T00:20:55.487Z"}
+{"level":"info","message":"Requisição recebida: GET /public/apks.json from 192.168.0.183","timestamp":"2025-06-07T00:20:56.749Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/generate-qr-data from 192.168.0.183","timestamp":"2025-06-07T00:21:07.974Z"}
+{"level":"info","message":"Token de provisionamento único gerado: daa6453217aa9583bd4fa1fef6735908cf88974688faf26c866b7ae79431e5ef","timestamp":"2025-06-07T00:21:07.985Z"}
+{"level":"info","message":"Payload de provisionamento gerado com sucesso.","timestamp":"2025-06-07T00:21:08.066Z"}
+{"level":"info","message":"Requisição recebida: GET /provisioning/qrcode?data=%7B%22android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME%22%3A%22com.example.mdm_client_base%2F.DeviceAdminReceiver%22%2C%22android.app.extra.PROVISIONING_DEVICE_ADMIN_SIGNATURE_CHECKSUM%22%3A%2212qK6Go0BE6k34I7FalONQZsGdHm1Wg85QMiPF5yflA%22%2C%22android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION%22%3A%22http%3A%2F%2F192.168.0.183%3A3000%2Fpublic%2Fmdm_client.apk%22%2C%22android.app.extra.PROVISIONING_WIFI_SSID%22%3A%22PEP%22%2C%22android.app.extra.PROVISIONING_WIFI_PASSWORD%22%3A%22pep%402015%40ttvdaev!%22%2C%22android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE%22%3A%22WPA%22%2C%22android.app.extra.PROVISIONING_LOCALE%22%3A%22pt_BR%22%2C%22android.app.extra.PROVISIONING_TIME_ZONE%22%3A%22America%2FSao_Paulo%22%2C%22android.app.extra.PROVISIONING_SKIP_ENCRYPTION%22%3Atrue%2C%22android.app.extra.PROVISIONING_LEAVE_ALL_SYSTEM_APPS_ENABLED%22%3Atrue%2C%22android.app.extra.PROVISIONING_ADMIN_EXTRAS_BUNDLE%22%3A%7B%22server_host%22%3A%22192.168.0.183%22%2C%22server_port%22%3A%223000%22%2C%22provisioning_token%22%3A%22daa6453217aa9583bd4fa1fef6735908cf88974688faf26c866b7ae79431e5ef%22%7D%7D from 192.168.0.183","timestamp":"2025-06-07T00:21:08.070Z"}
+{"level":"info","message":"Imagem do QR Code gerada e enviada.","timestamp":"2025-06-07T00:21:08.151Z"}
+{"level":"info","message":"Requisição recebida: GET /admin/provisioning from 192.168.0.183","timestamp":"2025-06-07T00:22:58.604Z"}
+{"level":"info","message":"Requisição recebida: GET /public/apks.json from 192.168.0.183","timestamp":"2025-06-07T00:22:59.548Z"}
+{"level":"info","message":"Requisição recebida: POST /api/provisioning/generate-qr-data from 192.168.0.183","timestamp":"2025-06-07T00:23:24.851Z"}
+{"level":"info","message":"Token de provisionamento único gerado: ad74b4a57a6a80bc32bf9e30d7500ebf3f973639897aa88344aa008607059768","timestamp":"2025-06-07T00:23:24.856Z"}
+{"level":"info","message":"Payload de provisionamento gerado com sucesso.","timestamp":"2025-06-07T00:23:24.958Z"}
+{"level":"info","message":"Requisição recebida: GET /provisioning/qrcode?data=%7B%22android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME%22%3A%22com.example.mdm_client_base%2F.DeviceAdminReceiver%22%2C%22android.app.extra.PROVISIONING_DEVICE_ADMIN_SIGNATURE_CHECKSUM%22%3A%221_bGGcR1B5fSjzj4CbEXvorCjfElwynt8ESBVgS-3pw%22%2C%22android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION%22%3A%22http%3A%2F%2F192.168.0.183%3A3000%2Fpublic%2Fmdm_client_test.apk%22%2C%22android.app.extra.PROVISIONING_WIFI_SSID%22%3A%22T06AP606%20-%20ALEXANDRE%202G%22%2C%22android.app.extra.PROVISIONING_WIFI_PASSWORD%22%3A%22Junior19!%22%2C%22android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE%22%3A%22WPA%22%2C%22android.app.extra.PROVISIONING_LOCALE%22%3A%22pt_BR%22%2C%22android.app.extra.PROVISIONING_TIME_ZONE%22%3A%22America%2FSao_Paulo%22%2C%22android.app.extra.PROVISIONING_SKIP_ENCRYPTION%22%3Atrue%2C%22android.app.extra.PROVISIONING_LEAVE_ALL_SYSTEM_APPS_ENABLED%22%3Atrue%2C%22android.app.extra.PROVISIONING_ADMIN_EXTRAS_BUNDLE%22%3A%7B%22server_host%22%3A%22192.168.0.183%22%2C%22server_port%22%3A%223000%22%2C%22provisioning_token%22%3A%22ad74b4a57a6a80bc32bf9e30d7500ebf3f973639897aa88344aa008607059768%22%7D%7D from 192.168.0.183","timestamp":"2025-06-07T00:23:24.961Z"}
+{"level":"info","message":"Imagem do QR Code gerada e enviada.","timestamp":"2025-06-07T00:23:25.003Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://192.168.0.183:3000","timestamp":"2025-06-07T00:32:41.852Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://192.168.0.183:3000/provision/{token}","timestamp":"2025-06-07T00:32:41.858Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://192.168.0.183:3000/dashboard (acesse com token)","timestamp":"2025-06-07T00:32:41.862Z"}
+{"level":"info","message":"🔧 Admin Provisioning disponível em: http://192.168.0.183:3000/admin/provisioning","timestamp":"2025-06-07T00:32:41.866Z"}
+{"level":"info","message":"📦 APKs disponíveis em: http://192.168.0.183:3000/public/apks.json","timestamp":"2025-06-07T00:32:41.870Z"}
+{"level":"info","message":"🔑 Painel de Provisionamento: http://192.168.0.183:3000/admin/provisioning","timestamp":"2025-06-07T00:32:41.873Z"}
+{"level":"info","message":"Atualizando caches de mapeamento (BSSID e Unidades)...","timestamp":"2025-06-07T00:32:41.874Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-07T00:32:41.899Z"}
+{"level":"info","message":"Caches atualizados: 1 BSSIDs, 1 Unidades.","timestamp":"2025-06-07T00:32:41.925Z"}
