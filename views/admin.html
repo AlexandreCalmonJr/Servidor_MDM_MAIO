@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM - Gerador de QR Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f1f5f9; font-family: 'Inter', sans-serif; }
+        .container { max-width: 700px; }
+        #qr-code-image { border: 6px solid white; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="container mx-auto bg-white p-6 sm:p-10 rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold mb-2 text-gray-800 text-center">Gerador de QR Code MDM</h1>
+        <p class="text-center text-gray-500 mb-8">Preencha os dados para gerar o QR Code de provisionamento.</p>
+        
+        <form id="provisioning-form" class="space-y-6">
+            <div>
+                <label for="organization" class="block text-sm font-medium text-gray-700">Organização</label>
+                <input type="text" id="organization" name="organization" value="Hapvida" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+                <label for="config_profile" class="block text-sm font-medium text-gray-700">Perfil de Configuração</label>
+                <input type="text" id="config_profile" name="config_profile" value="Padrao" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+                <label for="apk_filename" class="block text-sm font-medium text-gray-700">Arquivo APK do Cliente</label>
+                <select id="apk_filename" name="apk_filename" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="" disabled selected>Carregando APKs...</option>
+                </select>
+            </div>
+             <fieldset class="border p-4 rounded-md">
+                <legend class="text-sm font-medium text-gray-700 px-2">Configuração do Wi-Fi</legend>
+                <div class="space-y-4">
+                     <div>
+                        <label for="wifi_ssid" class="block text-sm font-medium text-gray-600">SSID (Nome da Rede)</label>
+                        <input type="text" id="wifi_ssid" name="wifi_ssid" placeholder="Ex: WIFI_CORPORATIVO" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="wifi_password" class="block text-sm font-medium text-gray-600">Senha</label>
+                        <input type="password" id="wifi_password" name="wifi_password" placeholder="Deixe em branco para rede aberta" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit" id="generate-btn" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200">
+                Gerar QR Code
+            </button>
+        </form>
+
+        <div id="loading" class="mt-8 text-center hidden"><p class="text-gray-600">Gerando QR Code, por favor aguarde...</p></div>
+        <div id="error-message" class="mt-4 text-center p-3 bg-red-100 text-red-700 font-medium rounded-md hidden"></div>
+        
+        <div id="qr-code-container" class="mt-8 text-center hidden">
+             <h2 class="text-xl font-semibold mb-4 text-gray-700">Escaneie para Provisionar</h2>
+            <img id="qr-code-image" src="" alt="QR Code de Provisionamento" class="mx-auto">
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('provisioning-form');
+        const qrCodeContainer = document.getElementById('qr-code-container');
+        const qrCodeImage = document.getElementById('qr-code-image');
+        const errorMessage = document.getElementById('error-message');
+        const loadingIndicator = document.getElementById('loading');
+        const generateBtn = document.getElementById('generate-btn');
+        const apkSelect = document.getElementById('apk_filename');
+        let authToken = '';
+
+        async function fetchApks() {
+            try {
+                const response = await fetch('/public/apks.json', { headers: { 'Authorization': `Bearer ${authToken}` }});
+                if (!response.ok) throw new Error('Falha ao buscar lista de APKs.');
+                
+                const apks = await response.json();
+                apkSelect.innerHTML = '<option value="" disabled selected>Selecione um APK</option>';
+                
+                if (apks.length === 0) {
+                     apkSelect.innerHTML = '<option value="" disabled selected>Nenhum APK na pasta /public</option>';
+                     return;
+                }
+                
+                apks.forEach(apk => {
+                    const option = document.createElement('option');
+                    option.value = apk.name;
+                    option.textContent = `${apk.name} (${(apk.size / 1024 / 1024).toFixed(2)} MB)`;
+                    apkSelect.appendChild(option);
+                });
+
+            } catch (error) {
+                apkSelect.innerHTML = '<option value="" disabled selected>Erro ao carregar APKs</option>';
+            }
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loadingIndicator.classList.remove('hidden');
+            qrCodeContainer.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            generateBtn.disabled = true;
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/provisioning/generate-qr-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const responseData = await response.json();
+                if (!response.ok) {
+                    throw new Error(responseData.error || `Erro ${response.status}`);
+                }
+                
+                const jsonDataString = JSON.stringify(responseData);
+                const qrCodeUrl = `/provisioning/qrcode?data=${encodeURIComponent(jsonDataString)}`;
+                
+                qrCodeImage.src = qrCodeUrl;
+                qrCodeContainer.classList.remove('hidden');
+
+            } catch (error) {
+                errorMessage.textContent = `Erro: ${error.message}`;
+                errorMessage.classList.remove('hidden');
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                generateBtn.disabled = false;
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            authToken = prompt('Por favor, insira o token de autenticação de administrador:', localStorage.getItem('mdmAuthToken') || '');
+            if (authToken) {
+                 localStorage.setItem('mdmAuthToken', authToken);
+                 fetchApks();
+            } else {
+                alert('Token de autenticação é necessário para continuar.');
+                document.body.innerHTML = '<div class="text-center text-red-500 font-bold mt-10">Acesso Negado</div>';
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+Agora seu servidor está totalmente preparado para o provisionamento via QR Code, incluindo uma interface administrativa para facilitar o proces
