@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { body, validationResult, query } = require('express-validator');
 const fs = require('fs').promises;
-const { json } = require('express'); // Adicionado para reforçar parsing de JSON
+const { json } = require('express');
 
 // Função para detectar o IP local
 function getLocalIPAddress() {
@@ -59,20 +59,35 @@ app.use(cors({
   optionsSuccessStatus: 200,
 }));
 
-// Middleware de rate limiting
-const limiter = rateLimit({
+// =================== RATE LIMITING OTIMIZADO ===================
+// 1. Limitador GERAL para rotas de LEITURA (GET) - Mais permissivo
+const getApiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // Limite de 100 requisições por IP
-  message: 'Muitas requisições a partir deste IP, tente novamente após 15 minutos.',
+  max: 500, // Limite aumentado para 500, ideal para dashboards que carregam muitos dados
+  message: 'Muitas requisições de leitura, tente novamente mais tarde.',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
-app.use(limiter);
 
-// Middleware para provisionamento
+// 2. Limitador para rotas de MODIFICAÇÃO (POST, PUT, DELETE) - Mais restritivo
+const modifyApiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // Mantemos 100 para ações que alteram dados
+  message: 'Muitas tentativas de modificação, tente novamente mais tarde.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// 3. Limitador para PROVISIONAMENTO - Mais rígido
 const enrollLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
   max: 10, // Limite de 10 requisições por IP
   message: 'Muitas tentativas de provisionamento, tente novamente após 15 minutos.',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
+// ================================================================
+
 
 // Middleware para parsing de JSON
 app.use(express.json());
@@ -126,6 +141,8 @@ mongoose.connect('mongodb://localhost:27017/mdm', {
 mongoose.connection.on('disconnected', () => {
   logger.warn('Desconectado do MongoDB, tentando reconectar...');
 });
+
+// (O restante do código, com os Modelos do Mongoose, continua o mesmo...)
 
 // Modelo de dispositivo
 const DeviceSchema = new mongoose.Schema({
@@ -313,7 +330,7 @@ async function mapIpToUnit(ip_address) {
 // === ROTAS ===
 
 // Gerar token de provisionamento
-app.post('/api/provisioning/generate-token', authenticate, async (req, res) => {
+app.post('/api/provisioning/generate-token', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { organization, config_profile, max_uses = 1, expires_in_hours = 24 } = req.body;
     
@@ -366,7 +383,7 @@ app.post('/api/provisioning/enroll', enrollLimiter, async (req, res) => {
       imei,
       secure_android_id,
       ip_address,
-      mac_address_radio, // Ajustado para mac_address_radio
+      mac_address_radio,
       wifi_ipv6,
       wifi_gateway_ip,
       wifi_broadcast,
@@ -416,7 +433,7 @@ app.post('/api/provisioning/enroll', enrollLimiter, async (req, res) => {
       imei,
       secure_android_id,
       ip_address,
-      mac_address_radio, // Ajustado para mac_address_radio
+      mac_address_radio,
       wifi_ipv6,
       wifi_gateway_ip,
       wifi_broadcast,
@@ -498,7 +515,7 @@ app.post('/api/provisioning/enroll', enrollLimiter, async (req, res) => {
 });
 
 // Finalizar provisionamento
-app.post('/api/provisioning/complete', authenticate, async (req, res) => {
+app.post('/api/provisioning/complete', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { device_id, serial_number, success, error_message } = req.body;
 
@@ -532,7 +549,7 @@ app.post('/api/provisioning/complete', authenticate, async (req, res) => {
 });
 
 // Criar perfil de configuração
-app.post('/api/config-profiles', authenticate, async (req, res) => {
+app.post('/api/config-profiles', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const profileData = req.body;
     
@@ -558,7 +575,7 @@ app.post('/api/config-profiles', authenticate, async (req, res) => {
 });
 
 // Receber e salvar dados do dispositivo
-app.post('/api/devices/data', authenticate, [
+app.post('/api/devices/data', authenticate, modifyApiLimiter, [
   body('device_id').notEmpty().withMessage('device_id é obrigatório'),
   body('device_name').notEmpty().withMessage('device_name é obrigatório'),
   body('serial_number').notEmpty().withMessage('serial_number é obrigatório'),
@@ -639,7 +656,7 @@ app.post('/api/devices/data', authenticate, [
 });
 
 // Heartbeat para atualizar last_seen
-app.post('/api/devices/heartbeat', authenticate, [
+app.post('/api/devices/heartbeat', authenticate, modifyApiLimiter, [
   body('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -671,7 +688,7 @@ app.post('/api/devices/heartbeat', authenticate, [
 });
 
 // Listar dispositivos
-app.get('/api/devices', authenticate, async (req, res) => {
+app.get('/api/devices', authenticate, getApiLimiter, async (req, res) => {
   try {
     const devices = await Device.find().lean();
     const devicesWithUnit = await Promise.all(devices.map(async (device) => {
@@ -687,7 +704,7 @@ app.get('/api/devices', authenticate, async (req, res) => {
 });
 
 // Obter comandos pendentes
-app.get('/api/devices/commands', authenticate, [
+app.get('/api/devices/commands', authenticate, getApiLimiter, [
   query('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -717,7 +734,7 @@ app.get('/api/devices/commands', authenticate, [
 });
 
 // Executar comando
-app.post('/api/executeCommand', authenticate, [
+app.post('/api/executeCommand', authenticate, modifyApiLimiter, [
   body('serial_number').notEmpty().withMessage('serial_number é obrigatório').trim(),
   body('command').notEmpty().withMessage('command é obrigatório').trim(),
 ], async (req, res) => {
@@ -784,7 +801,7 @@ app.post('/api/executeCommand', authenticate, [
 });
 
 // Reportar resultado de comando
-app.post('/api/devices/command-result', authenticate, async (req, res) => {
+app.post('/api/devices/command-result', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { command_id, serial_number, success, result, error_message } = req.body;
 
@@ -822,12 +839,12 @@ app.post('/api/devices/command-result', authenticate, async (req, res) => {
 
   } catch (err) {
     logger.error(`Erro ao registrar resultado do comando: ${err.message}`);
-    return res.status(500).json({ error: 'Erro interno do servidor' });
+    res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
 
 // Excluir dispositivo
-app.delete('/api/devices/:serial_number', authenticate, async (req, res) => {
+app.delete('/api/devices/:serial_number', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { serial_number } = req.params;
     const device = await Device.findOneAndDelete({ serial_number: serial_number });
@@ -844,7 +861,7 @@ app.delete('/api/devices/:serial_number', authenticate, async (req, res) => {
 });
 
 // Métricas do servidor
-app.get('/api/server/status', authenticate, async (req, res) => {
+app.get('/api/server/status', authenticate, getApiLimiter, async (req, res) => {
   try {
     const cpus = os.cpus();
     const totalIdle = cpus.reduce((sum, cpu) => sum + cpu.times.idle, 0);
@@ -873,7 +890,7 @@ app.get('/api/server/status', authenticate, async (req, res) => {
 });
 
 // Listar APKs na pasta public (ajustado para compatibilidade com Flutter)
-app.get('/public/apks.json', async (req, res) => {
+app.get('/public/apks.json', getApiLimiter, async (req, res) => {
   try {
     const publicDir = path.join(__dirname, 'public');
     const files = await fs.readdir(publicDir);
@@ -950,7 +967,7 @@ const isValidIPv4 = (ip) => {
   return ipv4Regex.test(ip);
 };
 
-app.post('/api/units', authenticate, async (req, res) => {
+app.post('/api/units', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { name, ip_range_start, ip_range_end } = req.body;
     if (!name || !ip_range_start || !ip_range_end) {
@@ -978,7 +995,7 @@ app.post('/api/units', authenticate, async (req, res) => {
 });
 
 // Listar unidades
-app.get('/api/units', authenticate, async (req, res) => {
+app.get('/api/units', authenticate, getApiLimiter, async (req, res) => {
   try {
     const units = await UnitMapping.find().lean();
     logger.info(`Lista de unidades retornada: ${units.length} unidades`);
@@ -990,7 +1007,7 @@ app.get('/api/units', authenticate, async (req, res) => {
 });
 
 // Atualizar unidade
-app.put('/api/units/:name', authenticate, async (req, res) => {
+app.put('/api/units/:name', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { name, ip_range_start, ip_range_end } = req.body;
     const unit = await UnitMapping.findOneAndUpdate(
@@ -1010,7 +1027,7 @@ app.put('/api/units/:name', authenticate, async (req, res) => {
 });
 
 // Excluir unidade
-app.delete('/api/units/:name', authenticate, async (req, res) => {
+app.delete('/api/units/:name', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const unit = await UnitMapping.findOneAndDelete({ name: req.params.name });
     if (!unit) {
@@ -1025,7 +1042,7 @@ app.delete('/api/units/:name', authenticate, async (req, res) => {
 });
 
 // Criar mapeamento de BSSID
-app.post('/api/bssid-mappings', authenticate, [
+app.post('/api/bssid-mappings', authenticate, modifyApiLimiter, [
   body('mac_address_radio')
     .notEmpty()
     .matches(/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/)
@@ -1054,7 +1071,7 @@ app.post('/api/bssid-mappings', authenticate, [
 });
 
 // Listar mapeamentos de BSSID
-app.get('/api/bssid-mappings', authenticate, async (req, res) => {
+app.get('/api/bssid-mappings', authenticate, getApiLimiter, async (req, res) => {
   try {
     const mappings = await BssidMapping.find().lean();
     logger.info(`Lista de mapeamentos de BSSID retornada: ${mappings.length} mapeamentos`);
@@ -1066,7 +1083,7 @@ app.get('/api/bssid-mappings', authenticate, async (req, res) => {
 });
 
 // Atualizar mapeamento de BSSID
-app.put('/api/bssid-mappings/:mac_address_radio', authenticate, async (req, res) => {
+app.put('/api/bssid-mappings/:mac_address_radio', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const { sector, floor } = req.body;
     const mapping = await BssidMapping.findOneAndUpdate(
@@ -1086,7 +1103,7 @@ app.put('/api/bssid-mappings/:mac_address_radio', authenticate, async (req, res)
 });
 
 // Excluir mapeamento de BSSID
-app.delete('/api/bssid-mappings/:mac_address_radio', authenticate, async (req, res) => {
+app.delete('/api/bssid-mappings/:mac_address_radio', authenticate, modifyApiLimiter, async (req, res) => {
   try {
     const mapping = await BssidMapping.findOneAndDelete({ mac_address_radio: req.params.mac_address_radio });
     if (!mapping) {

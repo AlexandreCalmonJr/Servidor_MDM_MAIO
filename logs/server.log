@@ -2358,3 +2358,725 @@
 {"level":"info","message":"Requisição recebida: GET /provisioning/qrcode?data=%7B%22android.app.extra.PROVISIONING_DEVICE_ADMIN_COMPONENT_NAME%22%3A%22com.example.mdm_client_base%2F.DeviceAdminReceiver%22%2C%22android.app.extra.PROVISIONING_DEVICE_ADMIN_SIGNATURE_CHECKSUM%22%3A%221_bGGcR1B5fSjzj4CbEXvorCjfElwynt8ESBVgS-3pw%22%2C%22android.app.extra.PROVISIONING_DEVICE_ADMIN_PACKAGE_DOWNLOAD_LOCATION%22%3A%22http%3A%2F%2F192.168.0.183%3A3000%2Fpublic%2Fmdm_client_test.apk%22%2C%22android.app.extra.PROVISIONING_WIFI_SSID%22%3A%22T06AP606%20-%20ALEXANDRE%202G%22%2C%22android.app.extra.PROVISIONING_WIFI_PASSWORD%22%3A%22Junior19!%22%2C%22android.app.extra.PROVISIONING_WIFI_SECURITY_TYPE%22%3A%22WPA%22%2C%22android.app.extra.PROVISIONING_LOCALE%22%3A%22pt_BR%22%2C%22android.app.extra.PROVISIONING_TIME_ZONE%22%3A%22America%2FSao_Paulo%22%2C%22android.app.extra.PROVISIONING_SKIP_ENCRYPTION%22%3Atrue%2C%22android.app.extra.PROVISIONING_LEAVE_ALL_SYSTEM_APPS_ENABLED%22%3Atrue%2C%22android.app.extra.PROVISIONING_ADMIN_EXTRAS_BUNDLE%22%3A%7B%22server_host%22%3A%22192.168.0.183%22%2C%22server_port%22%3A%223000%22%2C%22provisioning_token%22%3A%22e486aae68ce0a64ecbcc7d89db96e0d39cb08fbe00506391d2ea891ea1882dce%22%7D%7D from 192.168.0.183","timestamp":"2025-06-07T00:33:15.274Z"}
 {"level":"info","message":"Imagem do QR Code gerada e enviada.","timestamp":"2025-06-07T00:33:15.352Z"}
 >>>>>>> bf8b88ee60f35cc17f09c76537952c835db565b6
+{"level":"info","message":"🚀 MDM Server rodando em http://10.71.0.224:3000","timestamp":"2025-06-09T11:27:01.342Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://10.71.0.224:3000/provision/{token}","timestamp":"2025-06-09T11:27:01.349Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://10.71.0.224:3000/dashboard","timestamp":"2025-06-09T11:27:01.353Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-09T11:27:01.376Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:27:01.480Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:27:01.485Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:27:01.488Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:27:01.527Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:27:01.946Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:27:03.270Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:27:08.131Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:27:11.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:27:11.953Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:27:11.967Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:27:11.982Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:27:14.590Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:27:25.260Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:27:26.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:27:26.951Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:27:26.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:27:26.977Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:27:27.508Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:27:41.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:27:41.951Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:27:41.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:27:41.969Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:27:52.140Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:27:56.949Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:27:56.950Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:27:56.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:27:56.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:28:01.944Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:28:03.216Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:28:08.097Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:28:11.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:28:11.951Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:11.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:11.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:28:14.533Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:20.474Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:20.486Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:20.527Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:20.539Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:28:23.639Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:23.641Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:23.645Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:23.655Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:28:25.228Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:28:26.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:28:26.951Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:26.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:26.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:28:27.467Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:38.696Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:28:38.697Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:38.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:38.710Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:28:41.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:28:41.952Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:41.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:41.962Z"}
+{"level":"info","message":"Requisição recebida: POST /api/executeCommand from 10.71.2.241","timestamp":"2025-06-09T11:28:45.536Z"}
+{"level":"info","message":"Comando set_maintenance executado para R9XX809X1AY: status=true","timestamp":"2025-06-09T11:28:45.546Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:46.292Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:46.303Z"}
+{"level":"info","message":"Requisição recebida: POST /api/executeCommand from 10.71.2.241","timestamp":"2025-06-09T11:28:51.980Z"}
+{"level":"info","message":"Comando set_maintenance executado para R9XX809X1AY: status=false","timestamp":"2025-06-09T11:28:51.984Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:28:52.112Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:52.803Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:52.813Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:28:53.695Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:28:53.696Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:53.697Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:53.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:28:56.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:28:56.951Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:28:56.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:28:56.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:29:01.944Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:29:03.216Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:29:08.101Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:29:08.695Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:29:08.696Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:08.701Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:08.705Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:29:11.951Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:29:11.952Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:11.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:11.961Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:29:14.534Z"}
+{"level":"info","message":"Requisição recebida: POST /api/executeCommand from 10.71.2.241","timestamp":"2025-06-09T11:29:18.462Z"}
+{"level":"info","message":"Comando set_maintenance executado para R9XX809X1AY: status=true","timestamp":"2025-06-09T11:29:18.465Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:29:19.356Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:19.365Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:29:23.697Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:29:23.698Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:23.703Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:23.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:29:25.235Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:29:26.951Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:29:26.952Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:26.958Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:26.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:29:27.465Z"}
+{"level":"info","message":"Requisição recebida: POST /api/executeCommand from 10.71.2.241","timestamp":"2025-06-09T11:29:35.469Z"}
+{"level":"info","message":"Comando set_maintenance executado para R9XX809X1AY: status=false","timestamp":"2025-06-09T11:29:35.472Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:29:36.204Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:36.213Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:29:38.695Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:29:38.697Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:38.701Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:38.704Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:29:41.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:29:41.951Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:41.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:41.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:29:52.108Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:29:53.696Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:29:53.697Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:53.701Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:53.705Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:29:56.951Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:29:56.952Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:29:56.957Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:29:56.961Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:30:01.983Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.183","timestamp":"2025-06-09T11:30:03.239Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.183: {\"device_name\":\"Posto 12° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9QX7019C3J\",\"imei\":\"354974387359415\",\"sector\":\"Internação\",\"floor\":\"12\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.183\",\"network\":\"\\\"PEP\\\"\",\"battery\":72,\"last_seen\":\"2025-06-09T08:30:03.310256\",\"last_sync\":\"2025-06-09T08:20:03.334130\"}","timestamp":"2025-06-09T11:30:03.241Z"}
+{"level":"info","message":"Dispositivo R9QX7019C3J salvo/atualizado com sucesso","timestamp":"2025-06-09T11:30:03.246Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:30:03.307Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.111","timestamp":"2025-06-09T11:30:08.121Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.111: {\"device_name\":\"Posto 12° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"TP1A.220624.014\",\"serial_number\":\"R9QX2005ZHA\",\"imei\":\"354974382194239\",\"sector\":\"Internamento\",\"floor\":\"12°\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.111\",\"network\":\"\\\"PEP\\\"\",\"battery\":89,\"last_seen\":\"2025-06-09T08:30:07.879778\",\"last_sync\":\"2025-06-09T08:00:07.906405\"}","timestamp":"2025-06-09T11:30:08.123Z"}
+{"level":"info","message":"Dispositivo R9QX2005ZHA salvo/atualizado com sucesso","timestamp":"2025-06-09T11:30:08.126Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:30:08.174Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:30:08.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:30:08.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:08.703Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:08.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:30:11.952Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:30:11.953Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:11.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:11.963Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.64","timestamp":"2025-06-09T11:30:14.550Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.64: {\"device_name\":\"Hotelaria 2\",\"device_model\":\"SM-A065M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9XY4030P0F\",\"imei\":\"352686599543634\",\"sector\":\"hotelaria 2\",\"floor\":\"terreo\",\"mac_address_radio\":\"02:00:00:00:00:00\",\"ip_address\":\"10.71.48.64\",\"network\":\"N/A\",\"battery\":42,\"last_seen\":\"2025-06-09T08:30:14.629280\",\"last_sync\":\"2025-06-09T08:20:14.657834\"}","timestamp":"2025-06-09T11:30:14.551Z"}
+{"level":"info","message":"Dispositivo R9XY4030P0F salvo/atualizado com sucesso","timestamp":"2025-06-09T11:30:14.555Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:30:14.602Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:30:23.697Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:30:23.698Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:23.705Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:23.709Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.208","timestamp":"2025-06-09T11:30:25.247Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.208: {\"device_name\":\"Posto 12° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"TP1A.220624.014\",\"serial_number\":\"R9QX2005XLL\",\"imei\":\"354974382193603\",\"sector\":\"Internamento\",\"floor\":\"12°\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.208\",\"network\":\"\\\"PEP\\\"\",\"battery\":48,\"last_seen\":\"2025-06-09T08:30:25.569775\",\"last_sync\":\"2025-06-09T08:00:25.597830\"}","timestamp":"2025-06-09T11:30:25.248Z"}
+{"level":"info","message":"Dispositivo R9QX2005XLL salvo/atualizado com sucesso","timestamp":"2025-06-09T11:30:25.251Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:30:25.298Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:30:26.951Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:30:26.952Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:26.958Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:26.963Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.40","timestamp":"2025-06-09T11:30:27.493Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.40: {\"device_name\":\"Posto 12° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9QX2005XYV\",\"imei\":\"354974382193710\",\"sector\":\"Internamento\",\"floor\":\"12°\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.40\",\"network\":\"\\\"PEP\\\"\",\"battery\":82,\"last_seen\":\"2025-06-09T08:30:27.529178\",\"last_sync\":\"2025-06-09T08:20:27.554590\"}","timestamp":"2025-06-09T11:30:27.493Z"}
+{"level":"info","message":"Dispositivo R9QX2005XYV salvo/atualizado com sucesso","timestamp":"2025-06-09T11:30:27.497Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:30:27.549Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:30:38.696Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:30:38.697Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:38.702Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:38.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:30:41.951Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:30:41.952Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:41.958Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:41.963Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.146","timestamp":"2025-06-09T11:30:52.131Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.146: {\"device_name\":\"Galaxy A05\",\"device_model\":\"SM-A055M\",\"device_id\":\"TP1A.220624.014\",\"serial_number\":\"R9QX2005LQX\",\"imei\":\"354974382190344\",\"sector\":\"Internamento\",\"floor\":\"12\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.146\",\"network\":\"\\\"PEP\\\"\",\"battery\":95,\"last_seen\":\"2025-06-09T08:30:52.171699\",\"last_sync\":\"2025-06-09T08:00:52.196393\"}","timestamp":"2025-06-09T11:30:52.131Z"}
+{"level":"info","message":"Dispositivo R9QX2005LQX salvo/atualizado com sucesso","timestamp":"2025-06-09T11:30:52.135Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:30:52.189Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:30:53.697Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:30:53.698Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:53.703Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:53.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:30:56.952Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:30:56.953Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:30:56.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:30:56.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:31:01.945Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:31:03.221Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:31:08.104Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:31:08.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:31:08.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:08.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:08.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:31:11.953Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:31:11.954Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:11.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:11.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:31:14.554Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:31:23.697Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:31:23.698Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:23.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:23.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:31:25.229Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:31:26.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:31:26.955Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:26.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:26.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:31:27.469Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:31:38.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:31:38.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:38.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:38.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:31:41.952Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:31:41.953Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:41.958Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:41.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:31:52.110Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:31:53.697Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:31:53.698Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:53.702Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:53.705Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:31:56.952Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:31:56.953Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:31:56.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:31:56.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:32:01.945Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:32:03.215Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:32:08.096Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:32:08.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:32:08.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:08.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:08.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:32:11.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:32:11.955Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:11.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:11.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:32:14.533Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:32:23.697Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:32:23.698Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:23.703Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:23.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:32:25.229Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:32:26.953Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:32:26.954Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:26.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:26.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:32:27.469Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:32:38.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:32:38.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:38.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:38.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:32:41.953Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:32:41.954Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:41.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:41.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:32:52.110Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:32:53.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:32:53.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:53.703Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:53.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:32:56.953Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:32:56.954Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:32:56.959Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:32:56.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:33:01.945Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:33:03.246Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:33:08.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:33:08.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:33:08.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:08.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:08.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:33:11.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:33:11.955Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:11.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:11.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:33:14.570Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:33:23.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:33:23.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:23.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:23.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:33:25.260Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:33:26.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:33:26.955Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:26.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:26.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:33:27.500Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:33:38.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:33:38.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:38.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:38.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:33:41.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:33:41.955Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:41.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:41.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:33:52.139Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:33:53.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:33:53.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:53.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:53.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:33:56.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:33:56.955Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:33:56.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:33:56.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:34:01.946Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:34:03.217Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:34:08.100Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:34:08.700Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:34:08.701Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:08.705Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:08.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:34:11.956Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:34:11.957Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:11.962Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:11.967Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:34:14.530Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:34:23.698Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:34:23.699Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:23.701Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:23.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:34:25.228Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:34:26.955Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:34:26.956Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:26.962Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:26.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:34:27.468Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:34:38.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:34:38.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:38.706Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:38.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:34:41.955Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:34:41.956Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:41.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:41.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:34:52.120Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:34:53.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:34:53.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:53.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:53.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:34:56.955Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:34:56.956Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:34:56.960Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:34:56.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:35:01.945Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:35:03.218Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:35:08.102Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:35:08.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:35:08.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:08.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:08.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:35:11.956Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:35:11.957Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:11.962Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:11.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:35:14.532Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:35:23.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:35:23.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:23.705Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:23.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:35:25.229Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:35:26.956Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:35:26.957Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:26.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:26.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:35:27.468Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:35:38.700Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:35:38.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:38.705Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:38.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:35:41.956Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:35:41.957Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:41.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:41.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:35:52.132Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:35:53.699Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:35:53.700Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:53.704Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:53.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:35:56.956Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:35:56.957Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:35:56.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:35:56.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:36:01.954Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:36:03.259Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:36:08.131Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:36:08.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:36:08.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:08.706Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:08.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:36:11.957Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:36:11.958Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:11.962Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:11.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:36:14.575Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:36:23.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:36:23.701Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:23.706Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:23.710Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:36:25.266Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:36:26.957Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:36:26.958Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:26.963Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:26.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:36:27.502Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:36:38.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:36:38.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:38.706Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:38.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:36:41.957Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:36:41.958Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:41.963Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:41.968Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:36:52.144Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:36:53.710Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:36:53.711Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:53.715Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:53.718Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:36:56.957Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:36:56.958Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:36:56.963Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:36:56.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:37:01.944Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:37:03.218Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:37:08.098Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:37:08.700Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:37:08.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:08.707Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:08.710Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:37:11.958Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:37:11.959Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:11.963Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:11.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:37:14.533Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:37:23.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:37:23.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:23.707Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:23.710Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:37:25.235Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:37:26.958Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:37:26.959Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:26.964Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:26.967Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:37:27.467Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:37:38.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:37:38.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:38.707Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:38.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:37:41.958Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:37:41.959Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:41.964Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:41.967Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:37:52.122Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:37:53.700Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:37:53.701Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:53.705Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:53.708Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:37:56.958Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:37:56.959Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:37:56.963Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:37:56.967Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:38:01.946Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:38:03.217Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:38:08.100Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:38:08.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:38:08.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:08.706Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:08.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:38:11.959Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:38:11.960Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:11.964Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:11.968Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:38:14.533Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:38:23.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:38:23.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:23.707Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:23.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:38:25.259Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:38:26.959Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:38:26.960Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:26.964Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:26.969Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:38:27.471Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:38:38.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:38:38.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:38.706Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:38.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:38:41.959Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:38:41.960Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:41.965Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:41.969Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:38:52.111Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:38:53.701Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:38:53.702Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:53.707Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:53.709Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:38:56.959Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:38:56.960Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:38:56.965Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:38:56.969Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:39:01.947Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:39:03.247Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:39:08.129Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:39:08.702Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:39:08.703Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:39:08.707Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:39:08.710Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:39:11.959Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:39:11.960Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:39:11.961Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:39:11.969Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:39:14.563Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:39:23.702Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:39:23.703Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:39:23.708Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:39:23.711Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:39:25.262Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:39:27.500Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:39:52.160Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.26","timestamp":"2025-06-09T11:40:01.974Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.26: {\"device_name\":\"Posto 9⁰ andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9QX7019BPF\",\"imei\":\"354974387359282\",\"sector\":\"Posto\",\"floor\":\"9\",\"mac_address_radio\":\"c8:66:5d:39:22:65\",\"ip_address\":\"10.71.48.26\",\"network\":\"\\\"PEP\\\"\",\"battery\":45,\"last_seen\":\"2025-06-09T08:40:01.908133\",\"last_sync\":\"2025-06-09T08:00:01.938439\"}","timestamp":"2025-06-09T11:40:01.975Z"}
+{"level":"info","message":"Dispositivo R9QX7019BPF salvo/atualizado com sucesso","timestamp":"2025-06-09T11:40:01.979Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:40:02.011Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.183","timestamp":"2025-06-09T11:40:03.236Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.183: {\"device_name\":\"Posto 12° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9QX7019C3J\",\"imei\":\"354974387359415\",\"sector\":\"Internação\",\"floor\":\"12\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.183\",\"network\":\"\\\"PEP\\\"\",\"battery\":71,\"last_seen\":\"2025-06-09T08:40:03.308146\",\"last_sync\":\"2025-06-09T08:30:03.342916\"}","timestamp":"2025-06-09T11:40:03.237Z"}
+{"level":"info","message":"Dispositivo R9QX7019C3J salvo/atualizado com sucesso","timestamp":"2025-06-09T11:40:03.240Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:40:03.262Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:40:08.103Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.64","timestamp":"2025-06-09T11:40:14.556Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.64: {\"device_name\":\"Hotelaria 2\",\"device_model\":\"SM-A065M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9XY4030P0F\",\"imei\":\"352686599543634\",\"sector\":\"hotelaria 2\",\"floor\":\"terreo\",\"mac_address_radio\":\"02:00:00:00:00:00\",\"ip_address\":\"10.71.48.64\",\"network\":\"N/A\",\"battery\":42,\"last_seen\":\"2025-06-09T08:40:14.627759\",\"last_sync\":\"2025-06-09T08:30:14.657940\"}","timestamp":"2025-06-09T11:40:14.556Z"}
+{"level":"info","message":"Dispositivo R9XY4030P0F salvo/atualizado com sucesso","timestamp":"2025-06-09T11:40:14.560Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:40:14.586Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:40:25.230Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.40","timestamp":"2025-06-09T11:40:27.500Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.40: {\"device_name\":\"Posto 12° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"UP1A.231005.007\",\"serial_number\":\"R9QX2005XYV\",\"imei\":\"354974382193710\",\"sector\":\"Internamento\",\"floor\":\"12°\",\"mac_address_radio\":\"88:5b:dd:e0:62:a4\",\"ip_address\":\"10.71.48.40\",\"network\":\"\\\"PEP\\\"\",\"battery\":82,\"last_seen\":\"2025-06-09T08:40:27.528209\",\"last_sync\":\"2025-06-09T08:30:27.558284\"}","timestamp":"2025-06-09T11:40:27.501Z"}
+{"level":"info","message":"Dispositivo R9QX2005XYV salvo/atualizado com sucesso","timestamp":"2025-06-09T11:40:27.504Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:40:27.527Z"}
+{"level":"info","message":"Requisição recebida: POST /api/devices/data from 10.71.48.152","timestamp":"2025-06-09T11:40:28.100Z"}
+{"level":"info","message":"Dados recebidos de 10.71.48.152: {\"device_name\":\"Posto 9° Andar\",\"device_model\":\"SM-A055M\",\"device_id\":\"TP1A.220624.014\",\"serial_number\":\"R9QX2005X9T\",\"imei\":\"354974382193496\",\"sector\":\"Posto\",\"floor\":\"9° Andar\",\"mac_address_radio\":\"c8:66:5d:39:22:65\",\"ip_address\":\"10.71.48.152\",\"network\":\"\\\"PEP\\\"\",\"battery\":1,\"last_seen\":\"2025-06-09T08:40:28.308871\",\"last_sync\":\"2025-06-09T08:00:28.337840\"}","timestamp":"2025-06-09T11:40:28.101Z"}
+{"level":"info","message":"Dispositivo R9QX2005X9T salvo/atualizado com sucesso","timestamp":"2025-06-09T11:40:28.103Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005X9T from 10.71.48.152","timestamp":"2025-06-09T11:40:28.156Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:40:52.112Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:41:01.950Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:41:03.241Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:41:08.100Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:41:14.532Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:41:25.240Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:41:27.486Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:41:52.106Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:42:01.955Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:42:03.254Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:42:08.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:42:11.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:42:11.963Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:42:11.969Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:42:11.972Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:42:14.592Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:42:25.258Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:42:26.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:42:26.963Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:42:26.968Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:42:26.973Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:42:27.504Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:42:41.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:42:41.963Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:42:41.968Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:42:41.973Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:42:52.146Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:42:56.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:42:56.963Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:42:56.968Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:42:56.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:43:01.972Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:43:03.221Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:43:08.092Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:43:11.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:43:11.964Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:11.969Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:11.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:43:14.533Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:43:23.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:43:23.707Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:23.711Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:23.714Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:43:25.230Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:43:26.962Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:43:26.963Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:26.968Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:26.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:43:27.469Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:43:38.719Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:43:38.720Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:38.724Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:38.727Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:43:41.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:43:41.963Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:41.968Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:41.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:43:52.111Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:43:53.713Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:43:53.714Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:53.719Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:53.721Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:43:56.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:43:56.964Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:43:56.968Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:43:56.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:44:01.949Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:44:03.217Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:44:08.096Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:44:08.721Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:44:08.722Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:08.726Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:08.729Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:44:11.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:44:11.965Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:11.969Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:11.973Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:44:14.535Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:44:23.718Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:44:23.720Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:23.725Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:23.727Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:44:25.229Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:44:26.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:44:26.964Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:26.969Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:26.971Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:44:27.467Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:44:38.711Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:44:38.712Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:38.717Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:38.720Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:44:41.963Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:44:41.964Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:41.970Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:41.975Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:44:52.111Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:44:53.713Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:44:53.716Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:53.718Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:53.727Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:44:56.964Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:44:56.966Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:44:56.972Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:44:56.976Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:45:01.957Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:45:03.253Z"}
+{"level":"info","message":"🚀 MDM Server rodando em http://10.71.0.224:3000","timestamp":"2025-06-09T11:46:44.440Z"}
+{"level":"info","message":"📱 Provisionamento disponível em: http://10.71.0.224:3000/provision/{token}","timestamp":"2025-06-09T11:46:44.449Z"}
+{"level":"info","message":"📊 Dashboard disponível em: http://10.71.0.224:3000/dashboard","timestamp":"2025-06-09T11:46:44.455Z"}
+{"level":"info","message":"Conectado ao MongoDB","timestamp":"2025-06-09T11:46:44.476Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:46:44.808Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:46:44.815Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:46:44.827Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:46:44.855Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:46:45.985Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:46:45.989Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:46:45.993Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:46:46.013Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:46:52.109Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:46:53.707Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:46:53.709Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:46:53.720Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:46:53.738Z"}
+{"level":"info","message":"Requisição recebida: POST /api/executeCommand from 10.71.2.241","timestamp":"2025-06-09T11:46:54.782Z"}
+{"level":"info","message":"Comando set_maintenance executado para R9XX809X1AY: status=true","timestamp":"2025-06-09T11:46:54.793Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:46:55.574Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:46:55.590Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:46:56.967Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:46:56.969Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:46:56.980Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:46:56.991Z"}
+{"level":"info","message":"Requisição recebida: POST /api/executeCommand from 10.71.2.241","timestamp":"2025-06-09T11:46:59.087Z"}
+{"level":"info","message":"Comando set_maintenance executado para R9XX809X1AY: status=false","timestamp":"2025-06-09T11:46:59.092Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:47:00.261Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:00.277Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:47:01.945Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:47:03.219Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:47:08.103Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:47:08.706Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:47:08.708Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:08.715Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:08.726Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:47:11.965Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:47:11.966Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:11.978Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:12.002Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:47:14.552Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:47:23.722Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:47:23.724Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:23.732Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:23.741Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XLL from 10.71.48.208","timestamp":"2025-06-09T11:47:25.229Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:47:26.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:47:26.967Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:26.972Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:26.979Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005XYV from 10.71.48.40","timestamp":"2025-06-09T11:47:27.470Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:47:38.718Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:47:38.720Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:38.728Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:38.735Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:47:41.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:47:41.968Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:41.979Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:41.987Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005LQX from 10.71.48.146","timestamp":"2025-06-09T11:47:52.116Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:47:53.722Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:47:53.723Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:53.728Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:53.735Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:47:56.966Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:47:56.967Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:47:56.973Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:47:56.977Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019BPF from 10.71.48.26","timestamp":"2025-06-09T11:48:01.947Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX7019C3J from 10.71.48.183","timestamp":"2025-06-09T11:48:03.246Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9QX2005ZHA from 10.71.48.111","timestamp":"2025-06-09T11:48:08.128Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.2.241","timestamp":"2025-06-09T11:48:08.722Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.2.241","timestamp":"2025-06-09T11:48:08.724Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:48:08.729Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:48:08.735Z"}
+{"level":"info","message":"Requisição recebida: GET /api/bssid-mappings from 10.71.0.224","timestamp":"2025-06-09T11:48:11.967Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices from 10.71.0.224","timestamp":"2025-06-09T11:48:11.968Z"}
+{"level":"info","message":"Lista de mapeamentos de BSSID retornada: 2 mapeamentos","timestamp":"2025-06-09T11:48:11.969Z"}
+{"level":"info","message":"Lista de dispositivos retornada: 26 dispositivos","timestamp":"2025-06-09T11:48:11.979Z"}
+{"level":"info","message":"Requisição recebida: GET /api/devices/commands?serial_number=R9XY4030P0F from 10.71.48.64","timestamp":"2025-06-09T11:48:14.564Z"}
